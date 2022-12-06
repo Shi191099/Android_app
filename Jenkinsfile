@@ -25,12 +25,12 @@ pipeline {
         stage('Artifacte upload') {
             steps {
                 echo 'Hello'
-                appCenter apiToken: '34cfa992bf0cf31a60c78c42e7c15a8b00e045f1', 
+                appCenter apiToken: 'apiToken', 
                 appName: 'Android-Poc', 
                 distributionGroups: 'android-apk-1', 
                 mandatoryUpdate: false, 
                 notifyTesters: true, 
-                ownerName: 'shital191099-gmail.com', 
+                ownerName: 'shital', 
                 pathToApp: '**/*.apk'
             }
         }
