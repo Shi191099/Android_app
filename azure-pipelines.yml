@@ -1,31 +1,69 @@
 trigger:
-- master  # You can specify the branch to trigger the pipeline
+- master
 
 pr:
 - '*'
 
 pool:
-  vmImage: 'linux'
+  vmImage: 'macOS-11'
   demands:
     - xcode
     - android-sdk
 
-steps:
-- task: UseJavaVersion@1
-  inputs:
-    versionSpec: '11'
-    addToPath: true
+variables:
+  GRADLE_OPTS: '-Dorg.gradle.daemon=false'
 
-- script: echo "Running Gradle build"
-  displayName: 'Run Gradle Build'
-  
-- script: ./gradlew test  # Adjust this command based on your project setup
-  displayName: 'Run Unit Tests'
+stages:
+- stage: Build
+  jobs:
+  - job: BuildJob
+    displayName: 'Build and Test'
+    steps:
+    - task: UseJavaVersion@1
+      inputs:
+        versionSpec: '11'
+        addToPath: true
 
-- script: ./gradlew assembleDebug  # Adjust this command for your build variant
-  displayName: 'Assemble Debug Build'
+    - script: echo "Running Gradle clean"
+      displayName: 'Clean Build'
+      
+    - script: ./gradlew assembleDebug  # Adjust this command based on your project setup
+      displayName: 'Assemble Debug Build'
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)/app/build/outputs/apk/debug'
-    artifactName: 'debug-apk'
+    - script: ./gradlew test  # Adjust this command based on your project setup
+      displayName: 'Run Unit Tests'
+    
+    - task: PublishTestResults@2
+      condition: succeededOrFailed()
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: '**/test-results/**/*.xml'
+        searchFolder: '$(System.DefaultWorkingDirectory)'
+        mergeTestResults: true
+        testRunTitle: 'Android Unit Tests'
+
+- stage: Deploy
+  jobs:
+  - job: DeployJob
+    displayName: 'Deploy to Google Play'
+    steps:
+    - task: AndroidSigning@3
+      inputs:
+        apkFiles: '**/*.apk'
+        apksign: true
+        apksignv2: true
+        apksignv3: false  # Adjust based on your signing needs
+        keytoolKeystoreFile: 'path-to-your-keystore.keystore'
+        keytoolKeystorePassword: '$(KEYSTORE_PASSWORD)'  # Secure this variable in your pipeline settings
+        keytoolAlias: 'your-alias'
+        keytoolAliasPassword: '$(KEY_ALIAS_PASSWORD)'  # Secure this variable in your pipeline settings
+        jarsignerArguments: '-verbose -sigalg SHA256withRSA -digestalg SHA-256'
+      displayName: 'Sign APK'
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish APK Artifact'
+      inputs:
+        PathtoPublish: '$(System.DefaultWorkingDirectory)'
+        ArtifactName: 'apk'
+
+# Add more stages or tasks as needed for additional deployment or distribution steps.
