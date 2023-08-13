@@ -1,19 +1,31 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
-- master
+- master  # You can specify the branch to trigger the pipeline
+
+pr:
+- '*'
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'linux'
+  demands:
+    - xcode
+    - android-sdk
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- task: UseJavaVersion@1
+  inputs:
+    versionSpec: '11'
+    addToPath: true
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- script: echo "Running Gradle build"
+  displayName: 'Run Gradle Build'
+  
+- script: ./gradlew test  # Adjust this command based on your project setup
+  displayName: 'Run Unit Tests'
+
+- script: ./gradlew assembleDebug  # Adjust this command for your build variant
+  displayName: 'Assemble Debug Build'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)/app/build/outputs/apk/debug'
+    artifactName: 'debug-apk'
