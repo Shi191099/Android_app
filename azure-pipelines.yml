@@ -4,7 +4,7 @@ trigger:
     - master
 
 pool:
-  name: android-azure-agent
+  name: Azure Pipelines
   vmImage: 'ubuntu-latest'
   demands:
     - android-sdk
