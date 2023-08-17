@@ -9,13 +9,10 @@ pool:
   demands:
     - Agent.Version -gtVersion 3.225.0
     - java
-    - android-sdk
 
-# variables:
-#   GRADLE_OPTS: '-Dorg.gradle.daemon=false'
-#   JAVA_HOME: $(JAVA_HOME_8_X64)
-
-
+variables:
+  GRADLE_OPTS: '-Dorg.gradle.daemon=false'
+  JAVA_HOME: $(JAVA_HOME_8_X64)
 
 stages:
 - stage: Build
