@@ -7,6 +7,7 @@ pool:
   name: Android-Agent
   vmImage: 'ubuntu-latest'
   demands:
+    - Agent.Version -gtVersion 3.0.0
     - java
     - android-sdk
 
