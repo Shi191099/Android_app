@@ -59,10 +59,10 @@ stages:
 #         jarsignerArguments: '-verbose -sigalg SHA256withRSA -digestalg SHA-256'
 #       displayName: 'Sign APK'
 
-    - task: PublishBuildArtifacts@1
-      displayName: 'Publish APK Artifact'
-      inputs:
-        PathtoPublish: '$(System.DefaultWorkingDirectory)'
-        ArtifactName: 'apk'
+    # - task: PublishBuildArtifacts@1
+    #   displayName: 'Publish APK Artifact'
+    #   inputs:
+    #     PathtoPublish: '$(System.DefaultWorkingDirectory)'
+    #     ArtifactName: 'apk'
 
 # Add more stages or tasks as needed for additional deployment or distribution steps.
