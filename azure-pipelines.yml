@@ -4,7 +4,7 @@ trigger:
     - master
 
 pool:
-  name: Default
+  name: android-azure-agent
   vmImage: 'ubuntu-latest'
   demands:
     - android-sdk
