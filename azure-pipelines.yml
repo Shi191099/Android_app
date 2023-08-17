@@ -66,3 +66,14 @@ stages:
     #     javaHomeOption: 'JDKVersion'
     #     sonarQubeRunAnalysis: true
 
+    - task: SonarQubePrepare@4
+      inputs:
+        SonarQube: 'azure-poc'  # The name of your SonarQube service connection in Azure DevOps
+        scannerMode: 'CLI'
+        configMode: 'file'
+        cliProjectKey: '$(Build.Repository.Name)'
+        cliProjectName: '$(Build.Repository.Name)'
+        cliSources: 'src'
+        extraProperties: |
+          sonar.host.url=http://52.55.105.131:9000
+          sonar.login=$(SonarQubeToken)  # Make sure to define SonarQubeToken variable in your pipeline
