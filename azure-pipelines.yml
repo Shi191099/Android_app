@@ -1,11 +1,10 @@
 trigger:
-- master
-
-pr:
-- '*'
+  branches:
+    include:
+    - master
 
 pool:
-  vmImage: 'macOS-11'
+  vmImage: 'ubuntu-latest'
   demands:
     - xcode
     - android-sdk
@@ -42,23 +41,23 @@ stages:
         mergeTestResults: true
         testRunTitle: 'Android Unit Tests'
 
-- stage: Deploy
-  jobs:
-  - job: DeployJob
-    displayName: 'Deploy to Google Play'
-    steps:
-    - task: AndroidSigning@3
-      inputs:
-        apkFiles: '**/*.apk'
-        apksign: true
-        apksignv2: true
-        apksignv3: false  # Adjust based on your signing needs
-        keytoolKeystoreFile: 'path-to-your-keystore.keystore'
-        keytoolKeystorePassword: '$(KEYSTORE_PASSWORD)'  # Secure this variable in your pipeline settings
-        keytoolAlias: 'your-alias'
-        keytoolAliasPassword: '$(KEY_ALIAS_PASSWORD)'  # Secure this variable in your pipeline settings
-        jarsignerArguments: '-verbose -sigalg SHA256withRSA -digestalg SHA-256'
-      displayName: 'Sign APK'
+# - stage: Deploy
+#   jobs:
+#   - job: DeployJob
+#     displayName: 'Deploy to Google Play'
+#     steps:
+#     - task: AndroidSigning@3
+#       inputs:
+#         apkFiles: '**/*.apk'
+#         apksign: true
+#         apksignv2: true
+#         apksignv3: false  # Adjust based on your signing needs
+#         keytoolKeystoreFile: 'path-to-your-keystore.keystore'
+#         keytoolKeystorePassword: '$(KEYSTORE_PASSWORD)'  # Secure this variable in your pipeline settings
+#         keytoolAlias: 'your-alias'
+#         keytoolAliasPassword: '$(KEY_ALIAS_PASSWORD)'  # Secure this variable in your pipeline settings
+#         jarsignerArguments: '-verbose -sigalg SHA256withRSA -digestalg SHA-256'
+#       displayName: 'Sign APK'
 
     - task: PublishBuildArtifacts@1
       displayName: 'Publish APK Artifact'
