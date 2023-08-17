@@ -7,7 +7,7 @@ pool:
   name: Android-Agent
   vmImage: 'ubuntu-latest'
   demands:
-    - Agent.Version -gtVersion 3.0.0
+    - Agent.Version -gtVersion 3.225.0
     - java
     - android-sdk
 
@@ -23,6 +23,10 @@ stages:
   - job: BuildJob
     displayName: 'Build and Test'
     steps:
+    - script: echo "Setting ANDROID_SDK_ROOT"
+      env:
+        ANDROID_SDK_ROOT: "/opt/android-sdk"
+        
     - script: echo "Running Gradle clean"
       displayName: 'Clean Build'
       
