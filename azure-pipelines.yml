@@ -36,6 +36,13 @@ stages:
     - script: ./gradlew test
       displayName: 'Run Unit Tests'
     
+    - script: ./gradlew cleanBuildCache
+      displayName: 'Clean Gradle Cache'
+    
+    - script: ./gradlew assembleDebug --stacktrace
+      displayName: 'Assemble Debug Build'
+
+    
     - task: PublishTestResults@2
       condition: succeededOrFailed()
       inputs:
