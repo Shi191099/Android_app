@@ -6,11 +6,11 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
   demands:
-    - xcode
     - android-sdk
 
 variables:
   GRADLE_OPTS: '-Dorg.gradle.daemon=false'
+  JAVA_HOME: $(JAVA_HOME_11_X64)  # Use the appropriate variable for Java 11
 
 stages:
 - stage: Build
@@ -18,18 +18,13 @@ stages:
   - job: BuildJob
     displayName: 'Build and Test'
     steps:
-    - task: UseJavaVersion@1
-      inputs:
-        versionSpec: '11'
-        addToPath: true
-
     - script: echo "Running Gradle clean"
       displayName: 'Clean Build'
       
-    - script: ./gradlew assembleDebug  # Adjust this command based on your project setup
+    - script: ./gradlew assembleDebug
       displayName: 'Assemble Debug Build'
 
-    - script: ./gradlew test  # Adjust this command based on your project setup
+    - script: ./gradlew test
       displayName: 'Run Unit Tests'
     
     - task: PublishTestResults@2
@@ -41,28 +36,12 @@ stages:
         mergeTestResults: true
         testRunTitle: 'Android Unit Tests'
 
-# - stage: Deploy
-#   jobs:
-#   - job: DeployJob
-#     displayName: 'Deploy to Google Play'
-#     steps:
-#     - task: AndroidSigning@3
-#       inputs:
-#         apkFiles: '**/*.apk'
-#         apksign: true
-#         apksignv2: true
-#         apksignv3: false  # Adjust based on your signing needs
-#         keytoolKeystoreFile: 'path-to-your-keystore.keystore'
-#         keytoolKeystorePassword: '$(KEYSTORE_PASSWORD)'  # Secure this variable in your pipeline settings
-#         keytoolAlias: 'your-alias'
-#         keytoolAliasPassword: '$(KEY_ALIAS_PASSWORD)'  # Secure this variable in your pipeline settings
-#         jarsignerArguments: '-verbose -sigalg SHA256withRSA -digestalg SHA-256'
-#       displayName: 'Sign APK'
-
-    # - task: PublishBuildArtifacts@1
-    #   displayName: 'Publish APK Artifact'
-    #   inputs:
-    #     PathtoPublish: '$(System.DefaultWorkingDirectory)'
-    #     ArtifactName: 'apk'
-
-# Add more stages or tasks as needed for additional deployment or distribution steps.
+    - task: Gradle@3
+      inputs:
+        gradleWrapperFile: 'gradlew'
+        workingDirectory: '/'
+        tasks: 'build'
+        publishJUnitResults: true
+        testResultsFiles: '**/TEST-*.xml'
+        javaHomeOption: 'JDKVersion'
+        sonarQubeRunAnalysis: true
