@@ -7,12 +7,14 @@ pool:
   name: Android-Agent
   vmImage: 'ubuntu-latest'
   demands:
-    - Agent.Version -gtVersion 2.182.1
     - java
     - android-sdk
 
 variables:
   GRADLE_OPTS: '-Dorg.gradle.daemon=false'
+  JAVA_HOME: $(JAVA_HOME_8_X64)
+
+
 
 stages:
 - stage: Build
