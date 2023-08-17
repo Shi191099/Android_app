@@ -28,14 +28,14 @@ stages:
     - script: ./gradlew test
       displayName: 'Run Unit Tests'
     
-    # - task: PublishTestResults@2
-    #   condition: succeededOrFailed()
-    #   inputs:
-    #     testResultsFormat: 'JUnit'
-    #     testResultsFiles: '**/test-results/**/*.xml'
-    #     searchFolder: '$(System.DefaultWorkingDirectory)'
-    #     mergeTestResults: true
-    #     testRunTitle: 'Android Unit Tests'
+    - task: PublishTestResults@2
+      condition: succeededOrFailed()
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: '**/test-results/**/*.xml'
+        searchFolder: '$(System.DefaultWorkingDirectory)'
+        mergeTestResults: true
+        testRunTitle: 'Android Unit Tests'
 
     - task: Gradle@3
       inputs:
