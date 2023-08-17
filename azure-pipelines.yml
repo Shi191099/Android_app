@@ -5,7 +5,7 @@ trigger:
 
 pool:
   name: Default
-  vmImage: 'ubuntu-latest'
+  #vmImage: 'ubuntu-latest'
   demands:
     - android-sdk
 
