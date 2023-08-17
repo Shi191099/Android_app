@@ -59,7 +59,7 @@ stages:
   
     - task: SonarQubePrepare@4
       inputs:
-        SonarQube: 'azure-poc'  # The name of your SonarQube service connection in Azure DevOps
+        SonarQube: 'sonarqube'  # The name of your SonarQube service connection in Azure DevOps
         scannerMode: 'CLI'
         configMode: 'file'
         cliProjectKey: '$(Build.Repository.Name)'
