@@ -12,7 +12,9 @@ pool:
 
 variables:
   GRADLE_OPTS: '-Dorg.gradle.daemon=false'
-  JAVA_HOME: $(JAVA_HOME)
+  JAVA_HOME: $(JAVA_HOME_8_X64)
+  JAVA_HOME_8_X64: /usr/lib/jvm/java-8-openjdk-amd64
+
 
 stages:
 - stage: Build
