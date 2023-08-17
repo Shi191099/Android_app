@@ -42,6 +42,10 @@ stages:
     - script: ./gradlew assembleDebug --stacktrace
       displayName: 'Assemble Debug Build'
 
+    - script: ./gradlew assembleDebug --stacktrace --debug
+      displayName: 'Assemble Debug Build with Debug Output'
+
+
     
     - task: PublishTestResults@2
       condition: succeededOrFailed()
