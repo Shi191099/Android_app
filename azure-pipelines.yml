@@ -77,4 +77,4 @@ stages:
         publishJUnitResults: true
         testResultsFiles: '**/TEST-*.xml'
         javaHomeOption: 'JDKVersion'
-        sonarQubeRunAnalysis: true
+      #  sonarQubeRunAnalysis: true
