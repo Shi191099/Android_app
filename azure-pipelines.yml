@@ -99,7 +99,7 @@ pool:
 variables:
   GRADLE_OPTS: '-Dorg.gradle.daemon=false'
   JAVA_HOME: $(JAVA_HOME_11_X64)  # Update to use Java 11
-  JAVA_HOME_11_X64: /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64
+  JAVA_HOME_11_X64: /usr/lib/jvm/java-11-openjdk-amd64
   ANDROID_SDK_ROOT: /opt/android-sdk 
 
 stages:
