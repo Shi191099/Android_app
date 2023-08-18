@@ -44,9 +44,16 @@ stages:
 
     # - script: ./gradlew assembleDebug --stacktrace --debug
     #   displayName: 'Assemble Debug Build with Debug Output'
-
-
     
+    - task: Gradle@3
+      inputs:
+        gradleWrapperFile: 'gradlew'
+        workingDirectory: '/'
+        tasks: 'build'
+        publishJUnitResults: true
+        testResultsFiles: '**/TEST-*.xml'
+        javaHomeOption: 'JDKVersion'
+
     - task: PublishTestResults@2
       condition: succeededOrFailed()
       inputs:
@@ -66,15 +73,7 @@ stages:
         cliProjectName: '$(Build.Repository.Name)'
         cliSources: 'src'
         extraProperties: |
-          sonar.host.url=http://52.55.105.131:9000
+          sonar.host.url=http://52.91.64.158:9000/
           sonar.login=$(SonarQubeToken)  # Make sure to define SonarQubeToken variable in your pipeline
 
-    # - task: Gradle@3
-    #   inputs:
-    #     gradleWrapperFile: 'gradlew'
-    #     workingDirectory: '/'
-    #     tasks: 'build'
-    #     publishJUnitResults: true
-    #     testResultsFiles: '**/TEST-*.xml'
-    #     javaHomeOption: 'JDKVersion'
-    #   #  sonarQubeRunAnalysis: true
+    
