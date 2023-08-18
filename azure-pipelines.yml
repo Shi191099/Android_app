@@ -54,6 +54,7 @@ stages:
         publishJUnitResults: true
         testResultsFiles: '**/TEST-*.xml'
         javaHomeOption: 'JDKVersion'
+        sonarQubeRunAnalysis: true
 
     - task: PublishTestResults@2
       condition: succeededOrFailed()
@@ -64,7 +65,7 @@ stages:
         mergeTestResults: true
         testRunTitle: 'Android Unit Tests'
 
-    - script: echo '$(Build.Repository.Name)'
+    #- script: echo '$(project-key)'
 
     - task: SonarQubePrepare@4
       inputs:
