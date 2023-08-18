@@ -66,17 +66,20 @@ stages:
         testRunTitle: 'Android Unit Tests'
 
     #- script: echo '$(project-key)'
+    - script: ./gradlew sonarqube -Dsonar.projectKey=azure-poc -Dsonar.host.url=http://52.91.64.158:9000 -Dsonar.login=$(SonarQubeToken)
+        displayName:'Run SonarQube Analysis'
 
-    - task: SonarQubePrepare@4
-      inputs:
-        SonarQube: 'sonarqube'  # The name of your SonarQube service connection in Azure DevOps
-        scannerMode: 'CLI'
-        configMode: 'file'
-        cliProjectKey: '$(project-key)'
-        cliProjectName: '$(project-key)'
-        cliSources: 'src'
-        extraProperties: |
-          sonar.host.url=http://52.91.64.158:9000/
-          sonar.login=$(SonarQubeToken)  # Make sure to define SonarQubeToken variable in your pipeline
+
+    # - task: SonarQubePrepare@4
+    #   inputs:
+    #     SonarQube: 'sonarqube'  # The name of your SonarQube service connection in Azure DevOps
+    #     scannerMode: 'CLI'
+    #     configMode: 'file'
+    #     cliProjectKey: '$(project-key)'
+    #     cliProjectName: '$(project-key)'
+    #     cliSources: 'src'
+    #     extraProperties: |
+    #       sonar.host.url=http://52.91.64.158:9000/
+    #       sonar.login=$(SonarQubeToken)  # Make sure to define SonarQubeToken variable in your pipeline
 
     
