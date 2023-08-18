@@ -1,3 +1,89 @@
+# trigger:
+#   branches:
+#     include:
+#     - master
+
+# pool:
+#   name: Android-Agent
+#   vmImage: 'ubuntu-latest'
+#   demands:
+#     - Agent.Version -gtVersion 3.225.0
+#     - java
+
+# variables:
+#   GRADLE_OPTS: '-Dorg.gradle.daemon=false'
+#   JAVA_HOME: $(JAVA_HOME_8_X64)
+#   JAVA_HOME_8_X64: /usr/lib/jvm/java-8-openjdk-amd64
+#   ANDROID_SDK_ROOT: /opt/android-sdk 
+
+
+# stages:
+# - stage: Build
+#   jobs:
+#   - job: BuildJob
+#     displayName: 'Build and Test'
+#     steps:
+#     - script: echo "Setting ANDROID_SDK_ROOT"
+#       env:
+#         ANDROID_SDK_ROOT: "/opt/android-sdk"
+        
+#     - script: echo "Running Gradle clean"
+#       displayName: 'Clean Build'
+      
+#     - script: ./gradlew assembleDebug
+#       displayName: 'Assemble Debug Build'
+
+#     - script: ./gradlew test
+#       displayName: 'Run Unit Tests'
+    
+#     # - script: ./gradlew cleanBuildCache
+#     #   displayName: 'Clean Gradle Cache'
+    
+#     # - script: ./gradlew assembleDebug --stacktrace
+#     #   displayName: 'Assemble Debug Build'
+
+#     # - script: ./gradlew assembleDebug --stacktrace --debug
+#     #   displayName: 'Assemble Debug Build with Debug Output'
+    
+#     - task: Gradle@3
+#       inputs:
+#         gradleWrapperFile: 'gradlew'
+#         gradleOptions: '-Xmx4096m'
+#         workingDirectory: ''
+#         tasks: 'build'
+#         publishJUnitResults: true
+#         testResultsFiles: '**/TEST-*.xml'
+#         javaHomeOption: 'JDKVersion'
+#         #sonarQubeRunAnalysis: true
+
+#     - task: PublishTestResults@2
+#       condition: succeededOrFailed()
+#       inputs:
+#         testResultsFormat: 'JUnit'
+#         testResultsFiles: '**/test-results/**/*.xml'
+#         searchFolder: '$(System.DefaultWorkingDirectory)'
+#         mergeTestResults: true
+#         testRunTitle: 'Android Unit Tests'
+
+#     #- script: echo '$(project-key)'
+#     - script: ./gradlew sonarqube -Dsonar.projectKey=azure-poc -Dsonar.host.url=http://52.91.64.158:9000 -Dsonar.login=$(SonarQubeToken)
+#       displayName: 'Run SonarQube Analysis'
+
+
+#     # - task: SonarQubePrepare@4
+#     #   inputs:
+#     #     SonarQube: 'sonarqube'  # The name of your SonarQube service connection in Azure DevOps
+#     #     scannerMode: 'CLI'
+#     #     configMode: 'file'
+#     #     cliProjectKey: '$(project-key)'
+#     #     cliProjectName: '$(project-key)'
+#     #     cliSources: 'src'
+#     #     extraProperties: |
+#     #       sonar.host.url=http://52.91.64.158:9000/
+#     #       sonar.login=$(SonarQubeToken)  # Make sure to define SonarQubeToken variable in your pipeline
+
+    
+
 trigger:
   branches:
     include:
@@ -12,10 +98,9 @@ pool:
 
 variables:
   GRADLE_OPTS: '-Dorg.gradle.daemon=false'
-  JAVA_HOME: $(JAVA_HOME_8_X64)
-  JAVA_HOME_8_X64: /usr/lib/jvm/java-8-openjdk-amd64
+  JAVA_HOME: $(JAVA_HOME_11_X64)  # Update to use Java 11
+  JAVA_HOME_11_X64: /usr/lib/jvm/adoptopenjdk-11-hotspot-amd64
   ANDROID_SDK_ROOT: /opt/android-sdk 
-
 
 stages:
 - stage: Build
@@ -35,16 +120,7 @@ stages:
 
     - script: ./gradlew test
       displayName: 'Run Unit Tests'
-    
-    # - script: ./gradlew cleanBuildCache
-    #   displayName: 'Clean Gradle Cache'
-    
-    # - script: ./gradlew assembleDebug --stacktrace
-    #   displayName: 'Assemble Debug Build'
 
-    # - script: ./gradlew assembleDebug --stacktrace --debug
-    #   displayName: 'Assemble Debug Build with Debug Output'
-    
     - task: Gradle@3
       inputs:
         gradleWrapperFile: 'gradlew'
@@ -54,7 +130,6 @@ stages:
         publishJUnitResults: true
         testResultsFiles: '**/TEST-*.xml'
         javaHomeOption: 'JDKVersion'
-        #sonarQubeRunAnalysis: true
 
     - task: PublishTestResults@2
       condition: succeededOrFailed()
@@ -65,21 +140,5 @@ stages:
         mergeTestResults: true
         testRunTitle: 'Android Unit Tests'
 
-    #- script: echo '$(project-key)'
     - script: ./gradlew sonarqube -Dsonar.projectKey=azure-poc -Dsonar.host.url=http://52.91.64.158:9000 -Dsonar.login=$(SonarQubeToken)
       displayName: 'Run SonarQube Analysis'
-
-
-    # - task: SonarQubePrepare@4
-    #   inputs:
-    #     SonarQube: 'sonarqube'  # The name of your SonarQube service connection in Azure DevOps
-    #     scannerMode: 'CLI'
-    #     configMode: 'file'
-    #     cliProjectKey: '$(project-key)'
-    #     cliProjectName: '$(project-key)'
-    #     cliSources: 'src'
-    #     extraProperties: |
-    #       sonar.host.url=http://52.91.64.158:9000/
-    #       sonar.login=$(SonarQubeToken)  # Make sure to define SonarQubeToken variable in your pipeline
-
-    
