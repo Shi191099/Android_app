@@ -64,7 +64,8 @@ stages:
         mergeTestResults: true
         testRunTitle: 'Android Unit Tests'
 
-  
+    - script: echo '$(Build.Repository.Name)'
+
     - task: SonarQubePrepare@4
       inputs:
         SonarQube: 'sonarqube'  # The name of your SonarQube service connection in Azure DevOps
