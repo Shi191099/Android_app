@@ -69,12 +69,12 @@ stages:
           sonar.host.url=http://52.55.105.131:9000
           sonar.login=$(SonarQubeToken)  # Make sure to define SonarQubeToken variable in your pipeline
 
-    - task: Gradle@3
-      inputs:
-        gradleWrapperFile: 'gradlew'
-        workingDirectory: '/'
-        tasks: 'build'
-        publishJUnitResults: true
-        testResultsFiles: '**/TEST-*.xml'
-        javaHomeOption: 'JDKVersion'
-      #  sonarQubeRunAnalysis: true
+    # - task: Gradle@3
+    #   inputs:
+    #     gradleWrapperFile: 'gradlew'
+    #     workingDirectory: '/'
+    #     tasks: 'build'
+    #     publishJUnitResults: true
+    #     testResultsFiles: '**/TEST-*.xml'
+    #     javaHomeOption: 'JDKVersion'
+    #   #  sonarQubeRunAnalysis: true
