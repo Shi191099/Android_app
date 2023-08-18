@@ -67,7 +67,7 @@ stages:
 
     #- script: echo '$(project-key)'
     - script: ./gradlew sonarqube -Dsonar.projectKey=azure-poc -Dsonar.host.url=http://52.91.64.158:9000 -Dsonar.login=$(SonarQubeToken)
-        displayName:'Run SonarQube Analysis'
+      displayName: 'Run SonarQube Analysis'
 
 
     # - task: SonarQubePrepare@4
