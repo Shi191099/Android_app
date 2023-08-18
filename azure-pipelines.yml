@@ -71,8 +71,8 @@ stages:
         SonarQube: 'sonarqube'  # The name of your SonarQube service connection in Azure DevOps
         scannerMode: 'CLI'
         configMode: 'file'
-        cliProjectKey: '$(Build.Repository.Name)'
-        cliProjectName: '$(Build.Repository.Name)'
+        cliProjectKey: '$(project-key)'
+        cliProjectName: '$(project-key)'
         cliSources: 'src'
         extraProperties: |
           sonar.host.url=http://52.91.64.158:9000/
