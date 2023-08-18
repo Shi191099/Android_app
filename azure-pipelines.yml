@@ -48,7 +48,8 @@ stages:
     - task: Gradle@3
       inputs:
         gradleWrapperFile: 'gradlew'
-        workingDirectory: '/'
+        gradleOptions: '-Xmx4096m'
+        workingDirectory: ''
         tasks: 'build'
         publishJUnitResults: true
         testResultsFiles: '**/TEST-*.xml'
