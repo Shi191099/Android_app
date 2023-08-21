@@ -55,7 +55,7 @@ stages:
         publishJUnitResults: true
         testResultsFiles: '**/TEST-*.xml'
         javaHomeOption: 'JDKVersion'
-        gradleOptions: '-Xmx4096m --stacktrace --debug'
+        gradleOptions: '-Xmx4096m'
         sonarQubeRunAnalysis: true
         # sqAnalysisProperties: |
         #   sonar.projectKey=android-poc
