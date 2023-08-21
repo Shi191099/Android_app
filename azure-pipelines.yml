@@ -56,7 +56,7 @@ stages:
         testResultsFiles: '**/TEST-*.xml'
         javaHomeOption: 'JDKVersion'
         gradleOptions: '-Xmx4096m'
-        sonarQubeRunAnalysis: true
+        #sonarQubeRunAnalysis: true
         # sqAnalysisProperties: |
         #   sonar.projectKey=android-poc
         #   sonar.host.url=http://3.81.115.207:9000/
