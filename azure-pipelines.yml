@@ -57,9 +57,10 @@ stages:
         javaHomeOption: 'JDKVersion'
         gradleOptions: '-Xmx4096m'
         sonarQubeRunAnalysis: true
-        sqGradlePluginVersionChoice: 'specify'
-        sonarQubeGradlePluginVersion: '2.6.1'
-        spotBugsAnalysis: false
+        sqAnalysisProperties: |
+          sonar.projectKey=azure-poc
+          sonar.host.url=http://54.197.4.147:9000/
+          sonar.login=$(SonarQubeToken)
      
 
 
