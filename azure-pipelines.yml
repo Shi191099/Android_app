@@ -51,12 +51,15 @@ stages:
     - task: Gradle@3
       inputs:
         gradleWrapperFile: 'gradlew'
-        gradleOptions: '-Xmx4096m'
-        workingDirectory: ''
         tasks: 'build'
         publishJUnitResults: true
         testResultsFiles: '**/TEST-*.xml'
         javaHomeOption: 'JDKVersion'
+        gradleOptions: '-Xmx4096m'
+        sonarQubeRunAnalysis: true
+        sqGradlePluginVersionChoice: 'specify'
+        sonarQubeGradlePluginVersion: '2.6.1'
+        spotBugsAnalysis: false
         # sonarQubeRunAnalysis: true
 
 
