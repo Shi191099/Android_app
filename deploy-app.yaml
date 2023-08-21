@@ -28,7 +28,7 @@ steps:
 #     artifactName: 'apk'
 
 - script: |
-    ls -R '$(Build.SourcesDirectory)'
+    echo '$(Build.SourcesDirectory)'
   displayName: Source Directory Path
 
 
