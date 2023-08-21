@@ -29,9 +29,10 @@ steps:
 
 - task: AppCenterDistribute@3
   inputs:
-    serverEndpoint: '0347c3c5bc06188afa41a9c1b637c2fa49f16992' # You need to configure this in Azure DevOps
+    serverEndpoint: 'app-center'
     appSlug: 'Bharath-Finance-poc_apk'
     appFile: '$(Pipeline.Workspace)/drop/**/*.apk'
     symbolsOption: 'Android'
     releaseNotesOption: 'input'
     releaseNotesInput: 'Release notes for this version.'
+    destinationType: 'groups'
