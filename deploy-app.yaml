@@ -58,4 +58,4 @@ steps:
     symbolsOption: 'Android'
     releaseNotesOption: 'input'
     releaseNotesInput: 'Release notes for this version.'
-   destinationType: 'groups'
+    destinationType: 'groups'
