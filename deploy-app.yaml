@@ -29,17 +29,18 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(Build.SourcesDirectory)/app/build/outputs/apk/release'
+    SourceFolder: '$(Build.SourcesDirectory)/s/app/build/outputs/apk/release'
     Contents: '**/*.apk'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
     OverWrite: true
+
 
 - task: PublishPipelineArtifact@1
   inputs:
     targetPath: '$(Build.ArtifactStagingDirectory)'
     artifactName: 'apk'
 
-
+    
 - task: AppCenterDistribute@3
   inputs:
     serverEndpoint: 'app-center'
