@@ -36,15 +36,6 @@ stages:
     - script: ./gradlew test
       displayName: 'Run Unit Tests'
     
-    # - script: ./gradlew cleanBuildCache
-    #   displayName: 'Clean Gradle Cache'
-    
-    # - script: ./gradlew assembleDebug --stacktrace
-    #   displayName: 'Assemble Debug Build'
-
-    # - script: ./gradlew assembleDebug --stacktrace --debug
-    #   displayName: 'Assemble Debug Build with Debug Output'
-    
     - task: Gradle@3
       inputs:
         gradleWrapperFile: 'gradlew'
@@ -81,7 +72,13 @@ stages:
           # sonar.exclusions=**/*.bin
           sonar.projectKey=android-poc_android-poc
 
+    - task: SonarQubePublish@5
+      inputs:
+        pollingTimeoutSec: '300'
         
+
+
+#-----------------------------------------------------------------------------------------------
 #     # - task: SonarQubePrepare@4
 #     #   inputs:
 #     #     SonarQube: 'sonarqube'  # The name of your SonarQube service connection in Azure DevOps
@@ -154,3 +151,14 @@ stages:
 
     # - script: ./gradlew sonarqube -Dsonar.projectKey=azure-poc -Dsonar.host.url=http://54.197.4.147:9000 -Dsonar.login=$(SonarQubeToken)
     #   displayName: 'Run SonarQube Analysis'
+
+#-----------------------------------------------------------------
+# - script: ./gradlew cleanBuildCache
+    #   displayName: 'Clean Gradle Cache'
+
+    # - script: ./gradlew assembleDebug --stacktrace
+    #   displayName: 'Assemble Debug Build'
+
+    # - script: ./gradlew assembleDebug --stacktrace --debug
+    #   displayName: 'Assemble Debug Build with Debug Output'
+    
