@@ -45,7 +45,6 @@ stages:
           # Additional properties that will be passed to the scanner,
           # Put one key=value per line, example:
           # sonar.exclusions=**/*.bin
-          export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
           sonar.projectKey=android-poc_android-poc
 
   
