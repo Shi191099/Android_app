@@ -1,3 +1,92 @@
+# trigger:
+#   branches:
+#     include:
+#     - master
+
+# pool:
+#   name: Bharath-Finance-Pool
+#   vmImage: 'ubuntu-latest'
+#   demands:
+#     - Agent.Version -gtVersion 3.225.0
+#     - java
+
+
+# variables:
+#   GRADLE_OPTS: '-Dorg.gradle.daemon=false'
+#   JAVA_HOME: $(JAVA_HOME_8_X64)
+#   JAVA_HOME_8_X64: /usr/lib/jvm/java-8-openjdk-amd64
+#   ANDROID_SDK_ROOT: /opt/android-sdk 
+
+ 
+# stages:
+# - stage: Build
+#   jobs:
+#   - job: BuildJob
+#     displayName: 'Build and Test'
+#     steps:
+#     - script: echo "Setting ANDROID_SDK_ROOT"
+#       env:
+#         ANDROID_SDK_ROOT: "/opt/android-sdk"
+
+#     - script: echo "Running Gradle clean"
+#       displayName: 'Clean Build'
+
+#     - script: ./gradlew assembleDebug
+#       displayName: 'Assemble Debug Build'
+ 
+#     - script: ./gradlew test
+#       displayName: 'Run Unit Tests'
+    
+#     - task: SonarQubePrepare@5
+#       inputs:
+#         SonarQube: 'SonarQube'
+#         scannerMode: 'Other'
+#         extraProperties: |
+#           # Additional properties that will be passed to the scanner,
+#           # Put one key=value per line, example:
+#           # sonar.exclusions=**/*.bin
+#           export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+#           sonar.projectKey=android-poc_android-poc
+
+  
+#     - task: Gradle@3
+#       inputs:
+#         gradleWrapperFile: 'gradlew'
+#         tasks: 'build'
+#         publishJUnitResults: true
+#         testResultsFiles: '**/TEST-*.xml'
+#         javaHomeOption: 'JDKVersion'
+#         gradleOptions: '-Xmx4096m'
+#         sonarQubeRunAnalysis: true
+#         # sqAnalysisProperties: |
+#         #   sonar.projectKey=android-poc
+#         #   sonar.host.url=http://54.197.4.147:9000/
+#         #   sonar.login=$(SonarQubeToken)
+        
+     
+
+
+#     - task: PublishTestResults@2
+#       condition: succeededOrFailed()
+#       inputs:
+#         testResultsFormat: 'JUnit'
+#         testResultsFiles: '**/test-results/**/*.xml'
+#         searchFolder: '$(System.DefaultWorkingDirectory)'
+#         mergeTestResults: true
+#         testRunTitle: 'Android Unit Tests'
+ 
+
+#     - task: SonarQubePublish@5
+#       inputs:
+#         pollingTimeoutSec: '300'
+    
+#     # - script: |
+#     #     export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+#     #     ./gradlew sonarqube -Dsonar.projectKey=azure-poc -Dsonar.host.url=http://54.197.4.147:9000 -Dsonar.login="$(SonarQubeToken)"
+#     #   displayName: 'Run SonarQube Analysis'
+
+
+
 trigger:
   branches:
     include:
@@ -10,20 +99,24 @@ pool:
     - Agent.Version -gtVersion 3.225.0
     - java
 
-
 variables:
   GRADLE_OPTS: '-Dorg.gradle.daemon=false'
-  JAVA_HOME: $(JAVA_HOME_8_X64)
   JAVA_HOME_8_X64: /usr/lib/jvm/java-8-openjdk-amd64
-  ANDROID_SDK_ROOT: /opt/android-sdk 
+  ANDROID_SDK_ROOT: /opt/android-sdk
 
- 
 stages:
 - stage: Build
   jobs:
   - job: BuildJob
     displayName: 'Build and Test'
     steps:
+    - task: UseJavaVersion@1
+      inputs:
+        versionSpec: '8.x'
+        addToPath: true
+        jdkArchitectureOption: 'x64'
+      displayName: 'Use Java 8'
+
     - script: echo "Setting ANDROID_SDK_ROOT"
       env:
         ANDROID_SDK_ROOT: "/opt/android-sdk"
@@ -37,18 +130,19 @@ stages:
     - script: ./gradlew test
       displayName: 'Run Unit Tests'
     
+    - script: echo "Setting up Java 11 for SonarQube analysis"
+      displayName: 'Setup Java 11'
+      env:
+        JAVA_HOME: $(Agent.ToolsDirectory)/jdk11
+
     - task: SonarQubePrepare@5
       inputs:
         SonarQube: 'SonarQube'
         scannerMode: 'Other'
         extraProperties: |
-          # Additional properties that will be passed to the scanner,
-          # Put one key=value per line, example:
-          # sonar.exclusions=**/*.bin
-          export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
           sonar.projectKey=android-poc_android-poc
+          sonar.login=$(SonarQubeToken)
 
-  
     - task: Gradle@3
       inputs:
         gradleWrapperFile: 'gradlew'
@@ -58,14 +152,7 @@ stages:
         javaHomeOption: 'JDKVersion'
         gradleOptions: '-Xmx4096m'
         sonarQubeRunAnalysis: true
-        # sqAnalysisProperties: |
-        #   sonar.projectKey=android-poc
-        #   sonar.host.url=http://54.197.4.147:9000/
-        #   sonar.login=$(SonarQubeToken)
         
-     
-
-
     - task: PublishTestResults@2
       condition: succeededOrFailed()
       inputs:
@@ -74,13 +161,7 @@ stages:
         searchFolder: '$(System.DefaultWorkingDirectory)'
         mergeTestResults: true
         testRunTitle: 'Android Unit Tests'
- 
 
     - task: SonarQubePublish@5
       inputs:
         pollingTimeoutSec: '300'
-    
-    # - script: |
-    #     export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
-    #     ./gradlew sonarqube -Dsonar.projectKey=azure-poc -Dsonar.host.url=http://54.197.4.147:9000 -Dsonar.login="$(SonarQubeToken)"
-    #   displayName: 'Run SonarQube Analysis'
