@@ -5,6 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.mvvm.kotlin.App
 import com.mvvm.kotlin.Car
 import javax.inject.Inject
+import com.microsoft.appcenter.AppCenter
+import com.microsoft.appcenter.analytics.Analytics
+import com.microsoft.appcenter.crashes.Crashes
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,8 +21,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+    
 
         (application as App).getCompoment().inject(this)
+        // Initialize App Center SDK
+        AppCenter.start(application, "$(app-secret-key)",
+                    Analytics::class.java, Crashes::class.java)
 
 
         car.drive()
