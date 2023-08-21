@@ -10,6 +10,7 @@ variables:
   JAVA_HOME_8_X64: /usr/lib/jvm/java-8-openjdk-amd64
   ANDROID_SDK_ROOT: /opt/android-sdk 
 
+steps:
 - script: |
     chmod +x ./gradlew
     ./gradlew assembleRelease
