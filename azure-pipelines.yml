@@ -57,11 +57,7 @@ stages:
         testRunTitle: 'Android Unit Tests'
 
 
-    # #- script: echo '$(project-key)'
-    #- script: |
-     #   export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
-      #  ./gradlew sonarqube -Dsonar.projectKey=azure-poc -Dsonar.host.url=http://54.197.4.147:9000 -Dsonar.login="$(SonarQubeToken)"
-      #displayName: 'Run SonarQube Analysis'
+  
     - task: SonarQubePrepare@5
       inputs:
         SonarQube: 'sonarqube'
