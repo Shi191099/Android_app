@@ -34,9 +34,9 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '**/*.apk'
+    SourceFolder: '$(agent.builddirectory)/app/build/outputs/apk/**/*.apk'
     Contents: '**/*.apk'
-    TargetFolder: '**/*.apk'
+    TargetFolder: '$(build.artifactstagingdirectory)'
     OverWrite: true
 
 
