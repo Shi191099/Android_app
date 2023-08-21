@@ -7,7 +7,7 @@ pool:
   name: Bharath-Finance-Pool
   vmImage: 'ubuntu-latest'
   demands:
-    - Agent.Version -gtVersion 3.225.0
+    - Agent.Version -gtVersion 3.224.1
     - java
 
 
