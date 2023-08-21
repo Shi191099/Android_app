@@ -57,11 +57,7 @@ stages:
         javaHomeOption: 'JDKVersion'
         gradleOptions: '-Xmx4096m --stacktrace --debug'
         sonarQubeRunAnalysis: true
-        sqAnalysisProperties: |
-          export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
-          sonar.projectKey=android-poc
-          sonar.host.url=http://54.197.4.147:9000/
-          sonar.login=$(SonarQubeToken)
+        
      
 
 
