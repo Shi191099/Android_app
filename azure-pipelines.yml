@@ -39,7 +39,7 @@ stages:
     
     - task: SonarQubePrepare@5
       inputs:
-        SonarQube: 'szfdxhgcfc'
+        SonarQube: 'SonarQube'
         scannerMode: 'Other'
         extraProperties: |
           # Additional properties that will be passed to the scanner,
@@ -60,7 +60,7 @@ stages:
         sqGradlePluginVersionChoice: 'specify'
         sonarQubeGradlePluginVersion: '2.6.1'
         spotBugsAnalysis: false
-        # sonarQubeRunAnalysis: true
+     
 
 
     - task: PublishTestResults@2
