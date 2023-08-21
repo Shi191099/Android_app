@@ -66,9 +66,10 @@ stages:
         testRunTitle: 'Android Unit Tests'
 
     # #- script: echo '$(project-key)'
-    - script: ./gradlew sonarqube -Dsonar.projectKey=azure-poc -Dsonar.host.url=http://54.197.4.147:9000 -Dsonar.login=$(SonarQubeToken)
+    - script: |
+        export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+        ./gradlew sonarqube -Dsonar.projectKey=azure-poc -Dsonar.host.url=http://52.91.64.158:9000 -Dsonar.login=$(SonarQubeToken)
       displayName: 'Run SonarQube Analysis'
-
 
 #     # - task: SonarQubePrepare@4
 #     #   inputs:
@@ -140,5 +141,5 @@ stages:
 #         mergeTestResults: true
 #         testRunTitle: 'Android Unit Tests'
 
-    - script: ./gradlew sonarqube -Dsonar.projectKey=azure-poc -Dsonar.host.url=http://54.197.4.147:9000 -Dsonar.login=$(SonarQubeToken)
-      displayName: 'Run SonarQube Analysis'
+    # - script: ./gradlew sonarqube -Dsonar.projectKey=azure-poc -Dsonar.host.url=http://54.197.4.147:9000 -Dsonar.login=$(SonarQubeToken)
+    #   displayName: 'Run SonarQube Analysis'
