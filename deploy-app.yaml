@@ -40,6 +40,10 @@ steps:
     targetPath: '$(Build.ArtifactStagingDirectory)'
     artifactName: 'apk'
 
+- script: |
+    ls -R '$(Build.ArtifactStagingDirectory)'
+  displayName: List Artifact Staging Directory Contents
+
     
 - task: AppCenterDistribute@3
   inputs:
