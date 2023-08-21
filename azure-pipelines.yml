@@ -39,7 +39,7 @@ stages:
     
     - task: SonarQubePrepare@5
       inputs:
-        SonarQube: 'SonarQube'
+        SonarQube: 'szfdxhgcfc'
         scannerMode: 'Other'
         extraProperties: |
           # Additional properties that will be passed to the scanner,
