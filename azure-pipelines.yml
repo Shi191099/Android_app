@@ -73,3 +73,8 @@ stages:
     - task: SonarQubePublish@5
       inputs:
         pollingTimeoutSec: '300'
+    
+    # - script: |
+    #     export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+    #     ./gradlew sonarqube -Dsonar.projectKey=azure-poc -Dsonar.host.url=http://54.197.4.147:9000 -Dsonar.login="$(SonarQubeToken)"
+    #   displayName: 'Run SonarQube Analysis'
