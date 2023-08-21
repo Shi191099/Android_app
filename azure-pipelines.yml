@@ -101,7 +101,7 @@ pool:
 variables:
   GRADLE_OPTS: '-Dorg.gradle.daemon=false'
   JAVA_HOME_8_X64: /usr/lib/jvm/java-8-openjdk-amd64
-  JAVA_HOME_11_X64: /usr/lib/jvm/java-11-openjdk-amd64
+  #JAVA_HOME_11_X64: /usr/lib/jvm/java-11-openjdk-amd64
   ANDROID_SDK_ROOT: /opt/android-sdk
 
 stages:
@@ -123,10 +123,10 @@ stages:
     - script: ./gradlew test
       displayName: 'Run Unit Tests'
     
-    - script: echo "Setting up Java 11 for SonarQube analysis"
-      displayName: 'Setup Java 11'
-      env:
-        JAVA_HOME11: $(JAVA_HOME_11_X64)
+    # - script: echo "Setting up Java 11 for SonarQube analysis"
+    #   displayName: 'Setup Java 11'
+    #   env:
+    #     JAVA_HOME11: $(JAVA_HOME_11_X64)
 
     - task: SonarQubePrepare@5
       inputs:
