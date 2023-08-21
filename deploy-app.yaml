@@ -16,16 +16,29 @@ steps:
     ./gradlew assembleRelease
   displayName: 'Build Android App'
 
+# - task: CopyFiles@2
+#   inputs:
+#     sourceFolder: '$(Build.SourcesDirectory)/app/build/outputs/apk/release/'
+#     contents: '**/*.apk'
+#     targetFolder: '$(Build.ArtifactStagingDirectory)'
+
+# - task: PublishPipelineArtifact@1
+#   inputs:
+#     targetPath: '$(Build.ArtifactStagingDirectory)'
+#     artifactName: 'apk'
+
 - task: CopyFiles@2
   inputs:
-    sourceFolder: '$(Build.SourcesDirectory)/app/build/outputs/apk/release/'
-    contents: '**/*.apk'
-    targetFolder: '$(Build.ArtifactStagingDirectory)'
+    SourceFolder: '$(Build.SourcesDirectory)/app/build/outputs/apk/release'
+    Contents: '**/*.apk'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    OverWrite: true
 
 - task: PublishPipelineArtifact@1
   inputs:
     targetPath: '$(Build.ArtifactStagingDirectory)'
     artifactName: 'apk'
+
 
 - task: AppCenterDistribute@3
   inputs:
