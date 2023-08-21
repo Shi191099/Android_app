@@ -27,30 +27,35 @@ steps:
 #     targetPath: '$(Build.ArtifactStagingDirectory)'
 #     artifactName: 'apk'
 
-- task: CopyFiles@2
-  inputs:
-    SourceFolder: 's/app/build/outputs/apk/release'
-    Contents: '**/*.apk'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
-    OverWrite: true
-
-
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(Build.ArtifactStagingDirectory)'
-    artifactName: 'apk'
-
 - script: |
-    ls -R '$(Build.ArtifactStagingDirectory)'
-  displayName: List Artifact Staging Directory Contents
+    ls -R '$(Build.SourcesDirectory)'
+  displayName: Source Directory Path
+
+
+# - task: CopyFiles@2
+#   inputs:
+#     SourceFolder: '$(Build.SourcesDirectory)/app/build/outputs/apk/release'
+#     Contents: '**/*.apk'
+#     TargetFolder: '$(Build.ArtifactStagingDirectory)'
+#     OverWrite: true
+
+
+# - task: PublishPipelineArtifact@1
+#   inputs:
+#     targetPath: '$(Build.ArtifactStagingDirectory)'
+#     artifactName: 'apk'
+
+# - script: |
+#     ls -R '$(Build.ArtifactStagingDirectory)'
+#   displayName: List Artifact Staging Directory Contents
 
     
-- task: AppCenterDistribute@3
-  inputs:
-    serverEndpoint: 'app-center'
-    appSlug: 'Bharath-Finance-poc_apk'
-    appFile: '$(Pipeline.Workspace)/drop/**/*.apk'
-    symbolsOption: 'Android'
-    releaseNotesOption: 'input'
-    releaseNotesInput: 'Release notes for this version.'
-    destinationType: 'groups'
+# - task: AppCenterDistribute@3
+#   inputs:
+#     serverEndpoint: 'app-center'
+#     appSlug: 'Bharath-Finance-poc_apk'
+#     appFile: '$(Pipeline.Workspace)/drop/**/*.apk'
+#     symbolsOption: 'Android'
+#     releaseNotesOption: 'input'
+#     releaseNotesInput: 'Release notes for this version.'
+#    destinationType: 'groups'
