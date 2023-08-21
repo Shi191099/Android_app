@@ -1,0 +1,37 @@
+trigger:
+- master
+
+pool:
+  name: Bharath-Finance-Pool
+  vmImage: 'macOS-latest' # Use macOS or another suitable image for Android development
+
+steps:
+- task: UseJavaVersion@1
+  inputs:
+    versionSpec: '11'
+    addToPath: true
+
+- script: |
+    chmod +x ./gradlew
+    ./gradlew assembleRelease
+  displayName: 'Build Android App'
+
+- task: CopyFiles@2
+  inputs:
+    sourceFolder: '$(System.DefaultWorkingDirectory)/app/build/outputs/apk/release/'
+    contents: '**/*.apk'
+    targetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.ArtifactStagingDirectory)'
+    artifactName: 'apk'
+
+- task: AppCenterDistribute@3
+  inputs:
+    serverEndpoint: '0347c3c5bc06188afa41a9c1b637c2fa49f16992' # You need to configure this in Azure DevOps
+    appSlug: 'Bharath-Finance-poc_apk'
+    appFile: '$(Pipeline.Workspace)/drop/**/*.apk'
+    symbolsOption: 'Android'
+    releaseNotesOption: 'input'
+    releaseNotesInput: 'Release notes for this version.'
