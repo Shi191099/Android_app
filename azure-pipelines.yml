@@ -115,7 +115,7 @@ stages:
     - script: echo "Running Gradle clean"
       displayName: 'Clean Build'
       
-    - script: ./gradlew assembleDebug
+    - script: ./gradlew assembleDebug --stacktrace --debug
       displayName: 'Assemble Debug Build'
 
     - script: ./gradlew test
