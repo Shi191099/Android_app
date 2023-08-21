@@ -29,7 +29,7 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(Build.SourcesDirectory)/app/build/outputs/apk/release'
+    SourceFolder: 's/app/build/outputs/apk/release'
     Contents: '**/*.apk'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
     OverWrite: true
