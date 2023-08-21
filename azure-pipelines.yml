@@ -126,7 +126,7 @@ stages:
     - script: echo "Setting up Java 11 for SonarQube analysis"
       displayName: 'Setup Java 11'
       env:
-        JAVA_HOME: $(JAVA_HOME_11_X64)
+        JAVA_HOME11: $(JAVA_HOME_11_X64)
 
     - task: SonarQubePrepare@5
       inputs:
