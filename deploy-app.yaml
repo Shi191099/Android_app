@@ -6,17 +6,9 @@ pool:
   vmImage: 'macOS-latest' # Use macOS or another suitable image for Android development
 
 variables:
-  GRADLE_OPTS: '-Dorg.gradle.daemon=false'
   JAVA_HOME: $(JAVA_HOME_8_X64)
   JAVA_HOME_8_X64: /usr/lib/jvm/java-8-openjdk-amd64
   ANDROID_SDK_ROOT: /opt/android-sdk 
-
-
-# steps:
-# - script: |	
-#     echo '##vso[task.prependpath]/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin'	
-#     echo '##vso[task.setvariable variable=JAVA_HOME]$(Agent.ToolsDirectory)/jdk/11.0.11/x64'	
-#   displayName: 'Set up Java'
 
 - script: |
     chmod +x ./gradlew
