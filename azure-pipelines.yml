@@ -140,5 +140,5 @@ stages:
 #         mergeTestResults: true
 #         testRunTitle: 'Android Unit Tests'
 
-#     - script: ./gradlew sonarqube -Dsonar.projectKey=azure-poc -Dsonar.host.url=http://54.197.4.147:9000 -Dsonar.login=$(SonarQubeToken)
-#       displayName: 'Run SonarQube Analysis'
+    - script: ./gradlew sonarqube -Dsonar.projectKey=azure-poc -Dsonar.host.url=http://54.197.4.147:9000 -Dsonar.login=$(SonarQubeToken)
+      displayName: 'Run SonarQube Analysis'
