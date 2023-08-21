@@ -28,13 +28,13 @@ steps:
 #     artifactName: 'apk'
 
 - script: |
-    echo '$(Build.SourcesDirectory)'
+    ls -R '$(Build.SourcesDirectory)/s/app/build/outputs/apk/release'
   displayName: Source Directory Path
 
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(agent.builddirectory)/app/build/outputs/apk/**/*.apk'
+    SourceFolder: '$(agent.builddirectory)/s/app/build/outputs/apk/**/*.apk'
     Contents: '**/*.apk'
     TargetFolder: '$(build.artifactstagingdirectory)'
     OverWrite: true
