@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
         (application as App).getCompoment().inject(this)
         // Initialize App Center SDK
-        AppCenter.start(application, "98b2f63a-e3df-4a65-a984-246831d2bd56",
+        AppCenter.start(application, "7d53d9e4-a0c3-422b-b604-975cb9b273ab",
                     Analytics::class.java, Crashes::class.java)
 
 
