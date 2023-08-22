@@ -70,6 +70,7 @@ trigger:
 pr: none
 
 pool:
+  name: Bharath-Finance-Pool
   vmImage: 'ubuntu-latest'
 
 stages:
