@@ -129,7 +129,7 @@ stages:
       inputs:
         serverEndpoint: 'app-center'
         appSlug: 'shital/BharathPoc'
-        appFile: '$(Build.ArtifactStagingDirectory)/**/*.apk'
+        appFile: '**/*.apk'
         symbolsOption: 'none'
         isMandatory: false
         notifyTesters: true
