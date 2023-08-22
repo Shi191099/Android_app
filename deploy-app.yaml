@@ -36,20 +36,28 @@ steps:
 
 - task: AppCenterDistribute@3
   inputs:
-    echo 'Hello'
     serverEndpoint: 'app-center'
-    echo 'entered app-center'
     appSlug: 'Bharath-Finance'
-    echo 'set up app slug'
     appFile: '$(Build.SourcesDirectory)/app/build/outputs/apk/release/app-release-unsigned.apk'
-    echo 'taken apk file'
     symbolsOption: 'Android'
     releaseNotesOption: 'input'
     releaseNotesInput: 'Release notes for this version.'
-    echo 'entered group'
     destinationType: 'groups'
-    echo 'deploy distribution'
     distributionGroupId: 'poc-finance'
-    echo 'success'
     ownerName: 'shital'
   displayName: 'Distribute App to App Center'
+  
+  env:
+    Debug_AppCenterDistribute: |
+      Server Endpoint: $(serverEndpoint)
+      App Slug: $(appSlug)
+      App File: $(appFile)
+      Symbols Option: $(symbolsOption)
+      Release Notes Option: $(releaseNotesOption)
+      Release Notes Input: $(releaseNotesInput)
+      Destination Type: $(destinationType)
+      Distribution Group ID: $(distributionGroupId)
+      Owner Name: $(ownerName)
+
+- script: echo "$(Debug_AppCenterDistribute)"
+  displayName: 'Print AppCenterDistribute Inputs'
