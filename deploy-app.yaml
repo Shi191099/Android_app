@@ -112,15 +112,19 @@ stages:
         archiveFile: $(Build.ArtifactStagingDirectory)/app.zip
         replaceExistingArchive: true
 
-- stage: ArtifactUpload
+- stage: ArchiveArtifacts
   jobs:
-  - job: ArtifactUpload
+  - job: ArchiveArtifacts
     steps:
-    - task: PublishBuildArtifacts@1
+    - script: sudo apt-get update && sudo apt-get install -y zip
+      displayName: 'Install zip package'
+    - task: ArchiveFiles@2
       inputs:
-        pathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        artifactName: 'app'
-        publishLocation: 'container'
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: $(Build.ArtifactStagingDirectory)/app.zip
+        replaceExistingArchive: true
 
     - task: AppCenterDistribute@3
       inputs:
