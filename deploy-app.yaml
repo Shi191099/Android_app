@@ -62,9 +62,10 @@ steps:
 - task: AppCenterDistribute@3
   inputs:
     serverEndpoint: 'app-center'
-    appSlug: 'Bharath-Finance'
+    appSlug: 'Shi/Bharath-Finance'
     appFile: 'app/build/outputs/apk/**/*.apk'
     symbolsOption: 'Android'
+    isMandatory: true
     releaseNotesOption: 'input'
     releaseNotesInput: 'Release notes for this version.'
     destinationType: 'groups'
