@@ -1,37 +1,37 @@
-trigger:
-- master
+# trigger:
+# - master
 
-pool:
-  name: Bharath-Finance-Pool
-  vmImage: 'macOS-latest' # Use macOS or another suitable image for Android development
+# pool:
+#   name: Bharath-Finance-Pool
+#   vmImage: 'macOS-latest' # Use macOS or another suitable image for Android development
 
-variables:
-  JAVA_HOME: $(JAVA_HOME_8_X64)
-  JAVA_HOME_8_X64: /usr/lib/jvm/java-8-openjdk-amd64
-  ANDROID_SDK_ROOT: /opt/android-sdk 
+# variables:
+#   JAVA_HOME: $(JAVA_HOME_8_X64)
+#   JAVA_HOME_8_X64: /usr/lib/jvm/java-8-openjdk-amd64
+#   ANDROID_SDK_ROOT: /opt/android-sdk 
 
-steps:
-
-
-
-- script: |
-    chmod +x ./gradlew
-    ./gradlew assembleRelease
-  displayName: 'Build Android App'
+# steps:
 
 
-- task: CopyFiles@2
-  inputs:
-    SourceFolder: '$(Build.SourcesDirectory)/app/build/outputs/apk/release/'
-    Contents: '**/*.apk'
-    TargetFolder: '$(build.artifactstagingdirectory)'
-    OverWrite: true
+
+# - script: |
+#     chmod +x ./gradlew
+#     ./gradlew assembleRelease
+#   displayName: 'Build Android App'
 
 
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(Build.ArtifactStagingDirectory)'
-    artifactName: 'apk'
+# - task: CopyFiles@2
+#   inputs:
+#     SourceFolder: '$(Build.SourcesDirectory)/app/build/outputs/apk/release/'
+#     Contents: '**/*.apk'
+#     TargetFolder: '$(build.artifactstagingdirectory)'
+#     OverWrite: true
+
+
+# - task: PublishPipelineArtifact@1
+#   inputs:
+#     targetPath: '$(Build.ArtifactStagingDirectory)'
+#     artifactName: 'apk'
 
 
 # - task: AppCenterDistribute@3
