@@ -56,20 +56,21 @@ steps:
     command: publish
     publishDirectory: '$(Build.SourcesDirectory)/app/build/outputs/apk/release/app-release-unsigned.apk'
     vstsFeedPublish: 'Bharath-Finance/Bharat-fin-artifact'
-    vstsFeedPackagePublish: 'app-release-unsigned.apk'
+    vstsFeedPackagePublish: 'app-release-unsigned-apk'
     versionOption: minor
     versionPublish: '1.1.0'
     packagePublishDescription: 'Publishing the build artifact to azure artifacts'
 
 
-# - task: AppCenterDistribute@3
-#   inputs:
-#     serverEndpoint: 'app-center'
-#     appSlug: 'poc_apk'
-#     appFile: '$(Build.SourcesDirectory)/app/build/outputs/apk/release/app-release-unsigned.apk'
-#     symbolsOption: 'Android'
-#     releaseNotesOption: 'input'
-#     releaseNotesInput: 'Release notes for this version.'
-#     destinationType: 'groups'
-#     distributionGroupId: 'Bharath-finance-poc'
-    
+- task: AppCenterDistribute@3
+  inputs:
+    serverEndpoint: 'app-center'
+    appSlug: 'Bharath-Finance'
+    appFile: '$(Build.SourcesDirectory)/app/build/outputs/apk/release/app-release-unsigned.apk'
+    symbolsOption: 'Android'
+    releaseNotesOption: 'input'
+    releaseNotesInput: 'Release notes for this version.'
+    destinationType: 'groups'
+    distributionGroupId: 'poc-finance'
+    ownerName: 'shital'
+  displayName: 'Distribute App to App Center'
