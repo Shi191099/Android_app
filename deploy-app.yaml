@@ -61,16 +61,26 @@ steps:
 #     versionPublish: '1.1.0'
 #     packagePublishDescription: 'Publishing the build artifact to azure artifacts'
 
-
 - task: AppCenterDistribute@3
-  inputs:
-    serverEndpoint: 'app-center'
-    appSlug: 'Bharath-Finance'
-    appFile: '$(Build.SourcesDirectory)/app/build/outputs/apk/release/app-release-unsigned.apk'
-    symbolsOption: 'Android'
-    releaseNotesOption: 'input'
-    releaseNotesInput: 'Release notes for this version.'
-    destinationType: 'groups'
-    distributionGroupId: 'poc-finance'
-    ownerName: 'shital'
-  displayName: 'Distribute App to App Center'
+      inputs:
+        serverEndpoint: 'app-center'  # You need to configure the App Center service connection
+        appSlug: 'Bharath-Finance'
+        distributionGroups: 'poc-finance'
+        mandatoryUpdate: false
+        notifyTesters: true
+        ownerName: 'shital'
+        appFile: '**/*.apk'
+      displayName: 'Distribute App to App Center'
+
+# - task: AppCenterDistribute@3
+#   inputs:
+#     serverEndpoint: 'app-center'
+#     appSlug: 'Bharath-Finance'
+#     appFile: '$(Build.SourcesDirectory)/app/build/outputs/apk/release/app-release-unsigned.apk'
+#     #symbolsOption: 'Android'
+#     #releaseNotesOption: 'input'
+#     #releaseNotesInput: 'Release notes for this version.'
+#     destinationType: 'groups'
+#     distributionGroupId: 'poc-finance'
+#     ownerName: 'shital'
+#   displayName: 'Distribute App to App Center'
