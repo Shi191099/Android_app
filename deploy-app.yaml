@@ -92,7 +92,7 @@ parameters:
 - name: appFile
   displayName: 'Path of the apk to deploy'
   type: string
-  default: 'app/build/outputs/apk/release/app-release-unsigned.apk'
+  default: '**/*.apk'
 
 - name: releaseNotes
   displayName: 'Release notes'
