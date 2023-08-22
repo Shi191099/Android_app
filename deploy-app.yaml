@@ -38,8 +38,7 @@ steps:
   inputs:
     serverEndpoint: 'app-center'
     appSlug: 'BharathPoc'
-    appFile: '**/*.apk'
-    appName: 'BharathPoc'
+    appFile: 'app/build/outputs/apk/release/app-release-unsigned.apk'
     symbolsOption: 'Android'
     isMandatory: true
     releaseNotesOption: 'input'
@@ -65,3 +64,14 @@ steps:
   displayName: 'Print AppCenterDistribute Inputs'
 
 ########################################################################################
+# - task: AppCenterDistribute@3
+#   inputs:
+#     serverEndpoint: 'app-center'
+#     appSlug: 'BharathPoc'
+#     appFile: 'app/build/outputs/apk/release/app-release-unsigned.apk'
+#     symbolsOption: 'Android'
+#     releaseNotesOption: 'input'
+#     releaseNotesInput: 'Release notes for this version.'
+#     isMandatory: true
+#     destinationType: 'groups'
+#     distributionGroupId: 'bharathPoc'
