@@ -34,7 +34,7 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(agent.builddirectory)/s/app/build/outputs/apk/release/'
+    SourceFolder: '$(agent.builddirectory)/a/app/build/outputs/apk/release/'
     Contents: '**/*.apk'
     TargetFolder: '$(build.artifactstagingdirectory)'
     OverWrite: true
@@ -54,7 +54,7 @@ steps:
   inputs:
     serverEndpoint: 'app-center'
     appSlug: 'https://appcenter.ms/orgs/Bharath-Finance/apps/poc_apk'
-    appFile: '$(agent.builddirectory)/s/app/build/outputs/apk/release/'
+    appFile: '$(agent.builddirectory)/a/app/build/outputs/apk/release/'
     symbolsOption: 'Android'
     releaseNotesOption: 'input'
     releaseNotesInput: 'Release notes for this version.'
