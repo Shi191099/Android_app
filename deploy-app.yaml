@@ -14,10 +14,10 @@ steps:
 
 
 
-# - script: |
-#     chmod +x ./gradlew
-#     ./gradlew assembleRelease
-#   displayName: 'Build Android App'
+- script: |
+    chmod +x ./gradlew
+    ./gradlew assembleRelease
+  displayName: 'Build Android App'
 
 
 - task: CopyFiles@2
