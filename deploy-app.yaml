@@ -11,37 +11,22 @@ variables:
   ANDROID_SDK_ROOT: /opt/android-sdk 
 
 - task: JavaToolInstaller@0
-
   inputs:
-
     versionSpec: '11'
-
     jdkArchitectureOption: 'x64'
-
     jdkSourceOption: 'PreInstalled'
 
- 
 
 - task: SonarQubePrepare@5
-
   inputs:
-
     SonarQube: 'Bharath-Finance-Token'
-
     scannerMode: 'Other'
-
     extraProperties: |
-
       # Additional properties that will be passed to the scanner,
-
       # Put one key=value per line, example:
-
       # sonar.exclusions=**/*.bin
-
       sonar.projectKey=Bharath-Finance_Bharath-Finance_AYob9I_mBxlnRwzozCl7
-
       sonar.projectName=Bharath-Finance
-
  
 
 - task: Gradle@3
