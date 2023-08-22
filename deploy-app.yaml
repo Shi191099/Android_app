@@ -37,7 +37,7 @@ steps:
 - task: AppCenterDistribute@3
   inputs:
     serverEndpoint: 'app-center'
-    appSlug: 'shital191099-gmail.com-Bharath-Finance'
+    appSlug: 'Bharath-Finance-poc-finance'
     appFile: '$(Build.SourcesDirectory)/app/build/outputs/apk/release/app-release-unsigned.apk'
     symbolsOption: 'Android'
     releaseNotesOption: 'input'
