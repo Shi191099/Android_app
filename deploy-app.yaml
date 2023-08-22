@@ -54,7 +54,7 @@ steps:
   inputs:
     serverEndpoint: 'app-center'
     appSlug: 'https://appcenter.ms/orgs/Bharath-Finance/apps/poc_apk'
-    appFile: '$(Build.SourcesDirectory)/app/build/outputs/apk/release/'
+    appFile: '$(Build.SourcesDirectory)/app/build/outputs/apk/release/app-release-unsigned.apk'
     symbolsOption: 'Android'
     releaseNotesOption: 'input'
     releaseNotesInput: 'Release notes for this version.'
