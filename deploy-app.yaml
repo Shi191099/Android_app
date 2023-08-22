@@ -10,6 +10,7 @@ variables:
   JAVA_HOME_8_X64: /usr/lib/jvm/java-8-openjdk-amd64
   ANDROID_SDK_ROOT: /opt/android-sdk 
 
+steps:
 - task: JavaToolInstaller@0
   inputs:
     versionSpec: '11'
@@ -41,7 +42,7 @@ variables:
     sonarQubeGradlePluginVersion: '2.6.1'
     spotBugsAnalysis: false
 
-steps:
+
 - script: |
     chmod +x ./gradlew
     ./gradlew assembleRelease
