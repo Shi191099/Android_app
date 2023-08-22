@@ -14,10 +14,10 @@ steps:
 
 
 
-- script: |
-    chmod +x ./gradlew
-    ./gradlew assembleRelease
-  displayName: 'Build Android App'
+# - script: |
+#     chmod +x ./gradlew
+#     ./gradlew assembleRelease
+#   displayName: 'Build Android App'
 
 
 - task: CopyFiles@2
@@ -36,13 +36,20 @@ steps:
 
 - task: AppCenterDistribute@3
   inputs:
+    echo 'Hello'
     serverEndpoint: 'app-center'
+    echo 'entered app-center'
     appSlug: 'Bharath-Finance'
+    echo 'set up app slug'
     appFile: '$(Build.SourcesDirectory)/app/build/outputs/apk/release/app-release-unsigned.apk'
+    echo 'taken apk file'
     symbolsOption: 'Android'
     releaseNotesOption: 'input'
     releaseNotesInput: 'Release notes for this version.'
+    echo 'entered group'
     destinationType: 'groups'
+    echo 'deploy distribution'
     distributionGroupId: 'poc-finance'
+    echo 'success'
     ownerName: 'shital'
   displayName: 'Distribute App to App Center'
