@@ -62,7 +62,7 @@ steps:
 #     packagePublishDescription: 'Publishing the build artifact to azure artifacts'
 
 - task: AppCenterDistribute@3
-      inputs:
+  inputs:
         serverEndpoint: 'app-center'  # You need to configure the App Center service connection
         appSlug: 'Bharath-Finance'
         distributionGroups: 'poc-finance'
@@ -70,7 +70,7 @@ steps:
         notifyTesters: true
         ownerName: 'shital'
         appFile: '**/*.apk'
-      displayName: 'Distribute App to App Center'
+  displayName: 'Distribute App to App Center'
 
 # - task: AppCenterDistribute@3
 #   inputs:
