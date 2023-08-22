@@ -104,18 +104,6 @@ stages:
   jobs:
   - job: ArchiveArtifacts
     steps:
-    - task: ArchiveFiles@2
-      inputs:
-        rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
-        includeRootFolder: false
-        archiveType: 'zip'
-        archiveFile: $(Build.ArtifactStagingDirectory)/app.zip
-        replaceExistingArchive: true
-
-- stage: ArchiveArtifacts
-  jobs:
-  - job: ArchiveArtifacts
-    steps:
     - script: sudo apt-get update && sudo apt-get install -y zip
       displayName: 'Install zip package'
     - task: ArchiveFiles@2
@@ -125,6 +113,7 @@ stages:
         archiveType: 'zip'
         archiveFile: $(Build.ArtifactStagingDirectory)/app.zip
         replaceExistingArchive: true
+
 
     - task: AppCenterDistribute@3
       inputs:
