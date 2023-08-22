@@ -34,36 +34,23 @@ steps:
     artifactName: 'apk'
 
 
-# - task: AppCenterDistribute@3
-#   inputs:
-#     serverEndpoint: 'app-center'
-#     appSlug: 'Bharath-Finance-poc-finance'
-#     appFile: '$(Build.SourcesDirectory)/app/build/outputs/apk/release/app-release-unsigned.apk'
-#     symbolsOption: 'Android'
-#     releaseNotesOption: 'input'
-#     releaseNotesInput: 'Release notes for this version.'
-#     destinationType: 'groups'
-#     distributionGroupId: 'poc-finance'
-#     ownerName: 'shital'
-#   displayName: 'Distribute App to App Center'
-  
-#   env:
-#     Debug_AppCenterDistribute: |
-#       Server Endpoint: $(serverEndpoint)
-#       App Slug: $(appSlug)
-#       App File: $(appFile)
-#       Symbols Option: $(symbolsOption)
-#       Release Notes Option: $(releaseNotesOption)
-#       Release Notes Input: $(releaseNotesInput)
-#       Destination Type: $(destinationType)
-#       Distribution Group ID: $(distributionGroupId)
-#       Owner Name: $(ownerName)
+- task: UniversalPackages@0
+      displayName: Publish a Universal Package
+      inputs:
+        command: publish
+        publishDirectory: '$(Build.SourcesDirectory)/app/build/outputs/apk/release/app-release-unsigned.apk'
+        vstsFeedPublish: 'Bharath-Finance/Bharat-fin-artifact'
+        vstsFeedPackagePublish: 'app-release-unsigned-apk'
+        versionOption: minor
+        versionPublish: '1.1.0'
+        packagePublishDescription: 'Publishing the build artifact to azure artifacts'
+
 
 - task: AppCenterDistribute@3
   inputs:
     serverEndpoint: 'app-center'
     appSlug: 'Shi/Bharath-Finance'
-    appFile: 'app/build/outputs/apk/**/*.apk'
+    appFile: '**/*.apk'
     symbolsOption: 'Android'
     isMandatory: true
     releaseNotesOption: 'input'
@@ -72,17 +59,17 @@ steps:
     distributionGroupId: 'poc-finance'
   displayName: 'Distribute App to App Center'
   
-  env:
-    Debug_AppCenterDistribute: |
-      Server Endpoint: $(serverEndpoint)
-      App Slug: $(appSlug)
-      App File: $(appFile)
-      Symbols Option: $(symbolsOption)
-      Release Notes Option: $(releaseNotesOption)
-      Release Notes Input: $(releaseNotesInput)
-      Destination Type: $(destinationType)
-      Distribution Group ID: $(distributionGroupId)
-      Owner Name: $(ownerName)
+  # env:
+  #   Debug_AppCenterDistribute: |
+  #     Server Endpoint: $(serverEndpoint)
+  #     App Slug: $(appSlug)
+  #     App File: $(appFile)
+  #     Symbols Option: $(symbolsOption)
+  #     Release Notes Option: $(releaseNotesOption)
+  #     Release Notes Input: $(releaseNotesInput)
+  #     Destination Type: $(destinationType)
+  #     Distribution Group ID: $(distributionGroupId)
+  #     Owner Name: $(ownerName)
       
 - script: echo "$(Debug_AppCenterDistribute)"
   displayName: 'Print AppCenterDistribute Inputs'
