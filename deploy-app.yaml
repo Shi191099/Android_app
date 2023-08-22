@@ -82,7 +82,7 @@ parameters:
     displayName: 'Name of the service connection with App Center'
   - name: shi191099@gmail.com/BharathPoc
     displayName: 'Path to application in AppCenter'
-  - name: **/*.apk
+  - name: app/build/outputs/apk/release/app-release-unsigned.apk
     displayName: 'Path of the apk to deploy'
   - name: releaseNotes
     displayName: 'Release notes'
