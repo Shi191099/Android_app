@@ -89,9 +89,8 @@ parameters:
   - name: deployMobileAssets
     displayName: "Deploy Mobile Assets"
 
-steps:    
-  - task: AppCenterDistribute@3
-    inputs:
+- task: AppCenterDistribute@3
+  inputs:
       serverEndpoint: '${{ parameters.appCenterServiceConnection }}'
       appSlug: '${{ parameters.appSlug }}'
       appFile: '${{parameters.appFile}}'
@@ -99,4 +98,4 @@ steps:
       destinationType: 'groups'
       releaseNotesOption: 'input'
       releaseNotesInput: '${{parameters.releaseNotes}}'
-    displayName: 'Distribute to App Center'
+  displayName: 'Distribute to App Center'
