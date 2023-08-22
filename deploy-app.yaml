@@ -99,8 +99,8 @@ parameters:
   type: string
   default: 'Release notes for this version.'
 
-- name: deployMobileAssets
-  displayName: "Deploy Mobile Assets"
+# - name: deployMobileAssets
+#   displayName: "Deploy Mobile Assets"
 
 
 steps:
