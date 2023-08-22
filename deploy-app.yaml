@@ -130,3 +130,4 @@ parameters:
     releaseNotesOption: 'input'
     releaseNotesInput: ${{ parameters.releaseNotes }}
   displayName: 'Distribute to App Center'
+ 
