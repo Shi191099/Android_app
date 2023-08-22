@@ -39,12 +39,14 @@ steps:
     serverEndpoint: 'app-center'
     appSlug: 'BharathPoc'
     appFile: '**/*.apk'
+    appName: 'BharathPoc'
     symbolsOption: 'Android'
     isMandatory: true
     releaseNotesOption: 'input'
     releaseNotesInput: 'Release notes for this version.'
     destinationType: 'groups'
     distributionGroupId: 'bharathPoc'
+    ownerName: 'shi191099@gmail.com'
   displayName: 'Distribute App to App Center'
   
   env:
