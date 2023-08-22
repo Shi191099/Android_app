@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
         (application as App).getCompoment().inject(this)
         // Initialize App Center SDK
-        AppCenter.start(application, "$(app-secret-key)",
+        AppCenter.start(application, "98b2f63a-e3df-4a65-a984-246831d2bd56",
                     Analytics::class.java, Crashes::class.java)
 
 
