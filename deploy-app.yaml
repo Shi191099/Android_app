@@ -50,13 +50,26 @@ steps:
   displayName: List Artifact Staging Directory Contents
 
     
-- task: AppCenterDistribute@3
+- task: UniversalPackages@0
+  displayName: Publish a Universal Package
   inputs:
-    serverEndpoint: 'app-center'
-    appSlug: 'poc_apk'
-    appFile: '$(Build.SourcesDirectory)/app/build/outputs/apk/release/app-release-unsigned.apk'
-    symbolsOption: 'Android'
-    releaseNotesOption: 'input'
-    releaseNotesInput: 'Release notes for this version.'
-    destinationType: 'groups'
-    distributionGroupId: 'Bharath-finance-poc'
+    command: publish
+    publishDirectory: '$(Build.SourcesDirectory)/app/build/outputs/apk/release/app-release-unsigned.apk'
+    vstsFeedPublish: 'Bharath-Finance/Bharat-fin-artifact'
+    vstsFeedPackagePublish: 'app-release-unsigned.apk'
+    versionOption: minor
+    versionPublish: '1.1.0'
+    packagePublishDescription: 'Publishing the build artifact to azure artifacts'
+
+
+# - task: AppCenterDistribute@3
+#   inputs:
+#     serverEndpoint: 'app-center'
+#     appSlug: 'poc_apk'
+#     appFile: '$(Build.SourcesDirectory)/app/build/outputs/apk/release/app-release-unsigned.apk'
+#     symbolsOption: 'Android'
+#     releaseNotesOption: 'input'
+#     releaseNotesInput: 'Release notes for this version.'
+#     destinationType: 'groups'
+#     distributionGroupId: 'Bharath-finance-poc'
+    
