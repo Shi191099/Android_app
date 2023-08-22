@@ -78,24 +78,6 @@ variables:
   JAVA_HOME_8_X64: /usr/lib/jvm/java-8-openjdk-amd64
   ANDROID_SDK_ROOT: /opt/android-sdk 
 
-steps:
-- script: |
-    chmod +x ./gradlew
-    ./gradlew assembleRelease
-  displayName: 'Build Android App'
-
-- task: CopyFiles@2
-  inputs:
-    SourceFolder: '$(Build.SourcesDirectory)/app/build/outputs/apk/release/'
-    Contents: '**/*.apk'
-    TargetFolder: '$(build.artifactstagingdirectory)'
-    OverWrite: true
-
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(Build.ArtifactStagingDirectory)'
-    artifactName: 'apk'
-
 parameters:
 - name: appCenterServiceConnection
   displayName: 'Name of the service connection with App Center'
@@ -119,6 +101,26 @@ parameters:
 
 - name: deployMobileAssets
   displayName: "Deploy Mobile Assets"
+
+
+steps:
+- script: |
+    chmod +x ./gradlew
+    ./gradlew assembleRelease
+  displayName: 'Build Android App'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)/app/build/outputs/apk/release/'
+    Contents: '**/*.apk'
+    TargetFolder: '$(build.artifactstagingdirectory)'
+    OverWrite: true
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.ArtifactStagingDirectory)'
+    artifactName: 'apk'
+
 
 - task: AppCenterDistribute@3
   inputs:
