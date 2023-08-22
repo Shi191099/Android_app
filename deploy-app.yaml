@@ -114,6 +114,16 @@ stages:
         archiveFile: $(Build.ArtifactStagingDirectory)/app.zip
         replaceExistingArchive: true
 
+- stage: ArtifactUpload
+  jobs:
+  - job: ArtifactUpload
+    steps:
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        artifactName: 'app'
+        publishLocation: 'container'
+        
 
     - task: AppCenterDistribute@3
       inputs:
@@ -124,6 +134,8 @@ stages:
         isMandatory: false
         notifyTesters: true
         distributionGroup: 'bharathPoc'
+        releaseNotesOption: 'input'
+        releaseNotesInput: 'Release notes for this version.'  # Provide your release notes here
       displayName: 'Distribute App to App Center'
 
 
