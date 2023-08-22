@@ -73,6 +73,11 @@ pool:
   name: Bharath-Finance-Pool
   vmImage: 'ubuntu-latest'
 
+variables:
+  JAVA_HOME: $(JAVA_HOME_8_X64)
+  JAVA_HOME_8_X64: /usr/lib/jvm/java-8-openjdk-amd64
+  ANDROID_SDK_ROOT: /opt/android-sdk 
+
 stages:
 - stage: Checkout
   jobs:
