@@ -34,35 +34,35 @@ steps:
     artifactName: 'apk'
 
 
-- task: AppCenterDistribute@3
-  inputs:
-    serverEndpoint: 'app-center'
-    appSlug: 'BharathPoc'
-    appName: 'BharathPoc'
-    appFile: 'app/build/outputs/apk/release/app-release-unsigned.apk'
-    symbolsOption: 'Android'
-    isMandatory: true
-    releaseNotesOption: 'input'
-    releaseNotesInput: 'Release notes for this version.'
-    destinationType: 'groups'
-    distributionGroupId: 'bharathPoc'
-    ownerName: 'shi191099@gmail.com'
-  displayName: 'Distribute App to App Center'
+# - task: AppCenterDistribute@3
+#   inputs:
+#     serverEndpoint: 'app-center'
+#     appSlug: 'BharathPoc'
+#     appName: 'BharathPoc'
+#     appFile: 'app/build/outputs/apk/release/app-release-unsigned.apk'
+#     symbolsOption: 'Android'
+#     isMandatory: true
+#     releaseNotesOption: 'input'
+#     releaseNotesInput: 'Release notes for this version.'
+#     destinationType: 'groups'
+#     distributionGroupId: 'bharathPoc'
+#     ownerName: 'shi191099@gmail.com'
+#   displayName: 'Distribute App to App Center'
   
-  env:
-    Debug_AppCenterDistribute: |
-      Server Endpoint: $(serverEndpoint)
-      App Slug: $(appSlug)
-      App File: $(appFile)
-      Symbols Option: $(symbolsOption)
-      Release Notes Option: $(releaseNotesOption)
-      Release Notes Input: $(releaseNotesInput)
-      Destination Type: $(destinationType)
-      Distribution Group ID: $(distributionGroupId)
-      Owner Name: $(ownerName)
+#   env:
+#     Debug_AppCenterDistribute: |
+#       Server Endpoint: $(serverEndpoint)
+#       App Slug: $(appSlug)
+#       App File: $(appFile)
+#       Symbols Option: $(symbolsOption)
+#       Release Notes Option: $(releaseNotesOption)
+#       Release Notes Input: $(releaseNotesInput)
+#       Destination Type: $(destinationType)
+#       Distribution Group ID: $(distributionGroupId)
+#       Owner Name: $(ownerName)
       
-- script: echo "$(Debug_AppCenterDistribute)"
-  displayName: 'Print AppCenterDistribute Inputs'
+# - script: echo "$(Debug_AppCenterDistribute)"
+#   displayName: 'Print AppCenterDistribute Inputs'
 
 ########################################################################################
 # - task: AppCenterDistribute@3
@@ -76,3 +76,27 @@ steps:
 #     isMandatory: true
 #     destinationType: 'groups'
 #     distributionGroupId: 'bharathPoc'
+
+parameters:
+  - name: app-center
+    displayName: 'Name of the service connection with App Center'
+  - name: shi191099@gmail.com/BharathPoc
+    displayName: 'Path to application in AppCenter'
+  - name: **/*.apk
+    displayName: 'Path of the apk to deploy'
+  - name: releaseNotes
+    displayName: 'Release notes'
+  - name: deployMobileAssets
+    displayName: "Deploy Mobile Assets"
+
+steps:    
+  - task: AppCenterDistribute@3
+    inputs:
+      serverEndpoint: '${{ parameters.appCenterServiceConnection }}'
+      appSlug: '${{ parameters.appSlug }}'
+      appFile: '${{parameters.appFile}}'
+      symbolsOption: 'Android'
+      destinationType: 'groups'
+      releaseNotesOption: 'input'
+      releaseNotesInput: '${{parameters.releaseNotes}}'
+    displayName: 'Distribute to App Center'
