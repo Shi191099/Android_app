@@ -54,7 +54,7 @@ steps:
   inputs:
     serverEndpoint: 'app-center'
     appSlug: 'Bharath-Finance-poc_apk'
-    appFile: '$(Pipeline.Workspace)/drop/**/*.apk'
+    appFile: '$(agent.builddirectory)/s/app/build/outputs/apk/release/*.apk'
     symbolsOption: 'Android'
     releaseNotesOption: 'input'
     releaseNotesInput: 'Release notes for this version.'
