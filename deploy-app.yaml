@@ -11,36 +11,7 @@ variables:
   ANDROID_SDK_ROOT: /opt/android-sdk 
 
 steps:
-# - task: JavaToolInstaller@0
-#   inputs:
-#     versionSpec: '11'
-#     jdkArchitectureOption: 'x64'
-#     jdkSourceOption: 'PreInstalled'
 
-
-# - task: SonarQubePrepare@5
-#   inputs:
-#     SonarQube: 'Bharath-Finance-Token'
-#     scannerMode: 'Other'
-#     extraProperties: |
-#       # Additional properties that will be passed to the scanner,
-#       # Put one key=value per line, example:
-#       # sonar.exclusions=**/*.bin
-#       sonar.projectKey=Bharath-Finance_Bharath-Finance_AYob9I_mBxlnRwzozCl7
-#       sonar.projectName=Bharath-Finance
- 
-
-# - task: Gradle@3
-#   inputs:
-#     gradleWrapperFile: 'gradlew'
-#     tasks: 'build'
-#     publishJUnitResults: true
-#     testResultsFiles: '**/TEST-*.xml'
-#     javaHomeOption: 'JDKVersion'
-#     sonarQubeRunAnalysis: true
-#     sqGradlePluginVersionChoice: 'specify'
-#     sonarQubeGradlePluginVersion: '2.6.1'
-#     spotBugsAnalysis: false
 
 
 - script: |
@@ -48,16 +19,6 @@ steps:
     ./gradlew assembleRelease
   displayName: 'Build Android App'
 
-# - task: CopyFiles@2
-#   inputs:
-#     sourceFolder: '$(Build.SourcesDirectory)/app/build/outputs/apk/release/'
-#     contents: '**/*.apk'
-#     targetFolder: '$(Build.ArtifactStagingDirectory)'
-
-# - task: PublishPipelineArtifact@1
-#   inputs:
-#     targetPath: '$(Build.ArtifactStagingDirectory)'
-#     artifactName: 'apk'
 
 - task: CopyFiles@2
   inputs:
@@ -73,43 +34,15 @@ steps:
     artifactName: 'apk'
 
 
-
-
-
-
-
-    
-# - task: UniversalPackages@0
-#   displayName: Publish a Universal Package
-#   inputs:
-#     command: publish
-#     publishDirectory: '$(Build.SourcesDirectory)/app/build/outputs/apk/release/app-release-unsigned.apk'
-#     vstsFeedPublish: 'Bharath-Finance/Bharat-fin-artifact'
-#     vstsFeedPackagePublish: 'app-release-unsigned-apk'
-#     versionOption: minor
-#     versionPublish: '1.1.0'
-#     packagePublishDescription: 'Publishing the build artifact to azure artifacts'
-
 - task: AppCenterDistribute@3
   inputs:
-        serverEndpoint: 'app-center'  # You need to configure the App Center service connection
-        appSlug: 'Bharath-Finance'
-        distributionGroups: 'poc-finance'
-        mandatoryUpdate: false
-        notifyTesters: true
-        ownerName: 'shital'
-        appFile: '**/*.apk'
+    serverEndpoint: 'app-center'
+    appSlug: 'Bharath-Finance'
+    appFile: '$(Build.SourcesDirectory)/app/build/outputs/apk/release/app-release-unsigned.apk'
+    #symbolsOption: 'Android'
+    #releaseNotesOption: 'input'
+    #releaseNotesInput: 'Release notes for this version.'
+    destinationType: 'groups'
+    distributionGroupId: 'poc-finance'
+    ownerName: 'shital'
   displayName: 'Distribute App to App Center'
-
-# - task: AppCenterDistribute@3
-#   inputs:
-#     serverEndpoint: 'app-center'
-#     appSlug: 'Bharath-Finance'
-#     appFile: '$(Build.SourcesDirectory)/app/build/outputs/apk/release/app-release-unsigned.apk'
-#     #symbolsOption: 'Android'
-#     #releaseNotesOption: 'input'
-#     #releaseNotesInput: 'Release notes for this version.'
-#     destinationType: 'groups'
-#     distributionGroupId: 'poc-finance'
-#     ownerName: 'shital'
-#   displayName: 'Distribute App to App Center'
