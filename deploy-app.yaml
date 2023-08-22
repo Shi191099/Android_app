@@ -1,131 +1,131 @@
-trigger:
-- master
-
-pool:
-  name: Bharath-Finance-Pool
-  vmImage: 'macOS-latest' # Use macOS or another suitable image for Android development
-
-variables:
-  JAVA_HOME: $(JAVA_HOME_8_X64)
-  JAVA_HOME_8_X64: /usr/lib/jvm/java-8-openjdk-amd64
-  ANDROID_SDK_ROOT: /opt/android-sdk 
-
-steps:
-
-
-
-- script: |
-    chmod +x ./gradlew
-    ./gradlew assembleRelease
-  displayName: 'Build Android App'
-
-
-- task: CopyFiles@2
-  inputs:
-    SourceFolder: '$(Build.SourcesDirectory)/app/build/outputs/apk/release/'
-    Contents: '**/*.apk'
-    TargetFolder: '$(build.artifactstagingdirectory)'
-    OverWrite: true
-
-
-- task: PublishPipelineArtifact@1
-  inputs:
-    targetPath: '$(Build.ArtifactStagingDirectory)'
-    artifactName: 'apk'
-
-
-- task: AppCenterDistribute@3
-  inputs:
-    serverEndpoint: 'app-center'
-    appSlug: 'shital/BharathPoc'
-    appFile: '**/*.apk'
-    symbolsOption: 'Android'
-    isMandatory: true
-    releaseNotesOption: 'input'
-    releaseNotesInput: 'Release notes for this version.'
-    destinationType: 'groups'
-    distributionGroupId: 'bharathPoc'
-  displayName: 'Distribute App to App Center'
-  
-  env:
-    Debug_AppCenterDistribute: |
-      Server Endpoint: $(serverEndpoint)
-      App Slug: $(appSlug)
-      App File: $(appFile)
-      Symbols Option: $(symbolsOption)
-      Release Notes Option: $(releaseNotesOption)
-      Release Notes Input: $(releaseNotesInput)
-      Destination Type: $(destinationType)
-      Distribution Group ID: $(distributionGroupId)
-      Owner Name: $(ownerName)
-      
-- script: echo "$(Debug_AppCenterDistribute)"
-  displayName: 'Print AppCenterDistribute Inputs'
-
-########################################################################################
-
 # trigger:
 # - master
 
-# pr: none
-
 # pool:
-#   vmImage: 'ubuntu-latest'
+#   name: Bharath-Finance-Pool
+#   vmImage: 'macOS-latest' # Use macOS or another suitable image for Android development
 
-# stages:
-# - stage: Checkout
-#   jobs:
-#   - job: Checkout
-#     steps:
-#     - checkout: self
-#       clean: true
+# variables:
+#   JAVA_HOME: $(JAVA_HOME_8_X64)
+#   JAVA_HOME_8_X64: /usr/lib/jvm/java-8-openjdk-amd64
+#   ANDROID_SDK_ROOT: /opt/android-sdk 
 
-# - stage: GradleClean
-#   jobs:
-#   - job: GradleClean
-#     steps:
-#     - script: './gradlew clean'
-#       displayName: 'Gradle Clean'
+# steps:
 
-# - stage: Build
-#   jobs:
-#   - job: Build
-#     steps:
-#     - script: './gradlew assembleRelease'
-#       displayName: 'Build Gradlew'
 
-# - stage: ArchiveArtifacts
-#   jobs:
-#   - job: ArchiveArtifacts
-#     steps:
-#     - task: ArchiveFiles@2
-#       inputs:
-#         rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
-#         includeRootFolder: false
-#         archiveType: 'zip'
-#         archiveFile: $(Build.ArtifactStagingDirectory)/app.zip
-#         replaceExistingArchive: true
 
-# - stage: ArtifactUpload
-#   jobs:
-#   - job: ArtifactUpload
-#     steps:
-#     - task: PublishBuildArtifacts@1
-#       inputs:
-#         pathtoPublish: '$(Build.ArtifactStagingDirectory)'
-#         artifactName: 'app'
-#         publishLocation: 'container'
+# - script: |
+#     chmod +x ./gradlew
+#     ./gradlew assembleRelease
+#   displayName: 'Build Android App'
 
-#     - task: AppCenterDistribute@3
-#       inputs:
-#         serverEndpoint: 'app-center'
-#         appSlug: 'shital/BharathPoc'
-#         appFile: '$(Build.ArtifactStagingDirectory)/**/*.apk'
-#         symbolsOption: 'none'
-#         isMandatory: false
-#         notifyTesters: true
-#         distributionGroup: 'bharathPoc'
-#       displayName: 'Distribute App to App Center'
+
+# - task: CopyFiles@2
+#   inputs:
+#     SourceFolder: '$(Build.SourcesDirectory)/app/build/outputs/apk/release/'
+#     Contents: '**/*.apk'
+#     TargetFolder: '$(build.artifactstagingdirectory)'
+#     OverWrite: true
+
+
+# - task: PublishPipelineArtifact@1
+#   inputs:
+#     targetPath: '$(Build.ArtifactStagingDirectory)'
+#     artifactName: 'apk'
+
+
+# - task: AppCenterDistribute@3
+#   inputs:
+#     serverEndpoint: 'app-center'
+#     appSlug: 'shital/BharathPoc'
+#     appFile: '**/*.apk'
+#     symbolsOption: 'Android'
+#     isMandatory: true
+#     releaseNotesOption: 'input'
+#     releaseNotesInput: 'Release notes for this version.'
+#     destinationType: 'groups'
+#     distributionGroupId: 'bharathPoc'
+#   displayName: 'Distribute App to App Center'
+  
+#   env:
+#     Debug_AppCenterDistribute: |
+#       Server Endpoint: $(serverEndpoint)
+#       App Slug: $(appSlug)
+#       App File: $(appFile)
+#       Symbols Option: $(symbolsOption)
+#       Release Notes Option: $(releaseNotesOption)
+#       Release Notes Input: $(releaseNotesInput)
+#       Destination Type: $(destinationType)
+#       Distribution Group ID: $(distributionGroupId)
+#       Owner Name: $(ownerName)
+      
+# - script: echo "$(Debug_AppCenterDistribute)"
+#   displayName: 'Print AppCenterDistribute Inputs'
+
+########################################################################################
+
+trigger:
+- master
+
+pr: none
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+stages:
+- stage: Checkout
+  jobs:
+  - job: Checkout
+    steps:
+    - checkout: self
+      clean: true
+
+- stage: GradleClean
+  jobs:
+  - job: GradleClean
+    steps:
+    - script: './gradlew clean'
+      displayName: 'Gradle Clean'
+
+- stage: Build
+  jobs:
+  - job: Build
+    steps:
+    - script: './gradlew assembleRelease'
+      displayName: 'Build Gradlew'
+
+- stage: ArchiveArtifacts
+  jobs:
+  - job: ArchiveArtifacts
+    steps:
+    - task: ArchiveFiles@2
+      inputs:
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: $(Build.ArtifactStagingDirectory)/app.zip
+        replaceExistingArchive: true
+
+- stage: ArtifactUpload
+  jobs:
+  - job: ArtifactUpload
+    steps:
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        artifactName: 'app'
+        publishLocation: 'container'
+
+    - task: AppCenterDistribute@3
+      inputs:
+        serverEndpoint: 'app-center'
+        appSlug: 'shital/BharathPoc'
+        appFile: '$(Build.ArtifactStagingDirectory)/**/*.apk'
+        symbolsOption: 'none'
+        isMandatory: false
+        notifyTesters: true
+        distributionGroup: 'bharathPoc'
+      displayName: 'Distribute App to App Center'
 
 
 
