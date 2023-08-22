@@ -10,6 +10,52 @@ variables:
   JAVA_HOME_8_X64: /usr/lib/jvm/java-8-openjdk-amd64
   ANDROID_SDK_ROOT: /opt/android-sdk 
 
+- task: JavaToolInstaller@0
+
+  inputs:
+
+    versionSpec: '11'
+
+    jdkArchitectureOption: 'x64'
+
+    jdkSourceOption: 'PreInstalled'
+
+ 
+
+- task: SonarQubePrepare@5
+
+  inputs:
+
+    SonarQube: 'Bharath-Finance-Token'
+
+    scannerMode: 'Other'
+
+    extraProperties: |
+
+      # Additional properties that will be passed to the scanner,
+
+      # Put one key=value per line, example:
+
+      # sonar.exclusions=**/*.bin
+
+      sonar.projectKey=Bharath-Finance_Bharath-Finance_AYob9I_mBxlnRwzozCl7
+
+      sonar.projectName=Bharath-Finance
+
+ 
+
+- task: Gradle@3
+  inputs:
+    gradleWrapperFile: 'gradlew'
+    tasks: 'build'
+    publishJUnitResults: true
+    testResultsFiles: '**/TEST-*.xml'
+    javaHomeOption: 'JDKVersion'
+    sonarQubeRunAnalysis: true
+    sqGradlePluginVersionChoice: 'specify'
+    sonarQubeGradlePluginVersion: '2.6.1'
+    spotBugsAnalysis: false
+
 steps:
 - script: |
     chmod +x ./gradlew
@@ -27,11 +73,6 @@ steps:
 #     targetPath: '$(Build.ArtifactStagingDirectory)'
 #     artifactName: 'apk'
 
-- script: |
-    ls -R '$(Build.SourcesDirectory)/app/build/outputs/apk/release'
-  displayName: Source Directory Path
-
-
 - task: CopyFiles@2
   inputs:
     SourceFolder: '$(Build.SourcesDirectory)/app/build/outputs/apk/release/'
@@ -45,9 +86,11 @@ steps:
     targetPath: '$(Build.ArtifactStagingDirectory)'
     artifactName: 'apk'
 
-- script: |
-    ls -R '$(Build.ArtifactStagingDirectory)'
-  displayName: List Artifact Staging Directory Contents
+
+
+
+
+
 
     
 # - task: UniversalPackages@0
