@@ -50,16 +50,16 @@ steps:
   displayName: List Artifact Staging Directory Contents
 
     
-- task: UniversalPackages@0
-  displayName: Publish a Universal Package
-  inputs:
-    command: publish
-    publishDirectory: '$(Build.SourcesDirectory)/app/build/outputs/apk/release/app-release-unsigned.apk'
-    vstsFeedPublish: 'Bharath-Finance/Bharat-fin-artifact'
-    vstsFeedPackagePublish: 'app-release-unsigned-apk'
-    versionOption: minor
-    versionPublish: '1.1.0'
-    packagePublishDescription: 'Publishing the build artifact to azure artifacts'
+# - task: UniversalPackages@0
+#   displayName: Publish a Universal Package
+#   inputs:
+#     command: publish
+#     publishDirectory: '$(Build.SourcesDirectory)/app/build/outputs/apk/release/app-release-unsigned.apk'
+#     vstsFeedPublish: 'Bharath-Finance/Bharat-fin-artifact'
+#     vstsFeedPackagePublish: 'app-release-unsigned-apk'
+#     versionOption: minor
+#     versionPublish: '1.1.0'
+#     packagePublishDescription: 'Publishing the build artifact to azure artifacts'
 
 
 - task: AppCenterDistribute@3
