@@ -53,7 +53,7 @@ steps:
 - task: AppCenterDistribute@3
   inputs:
     serverEndpoint: 'app-center'
-    appSlug: 'Bharath-Finance-poc_apk'
+    appSlug: 'Bharath-Finance/poc_apk'
     appFile: '$(agent.builddirectory)/s/app/build/outputs/apk/release/*.apk'
     symbolsOption: 'Android'
     releaseNotesOption: 'input'
