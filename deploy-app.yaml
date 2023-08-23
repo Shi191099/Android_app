@@ -34,7 +34,7 @@ steps:
     artifactName: 'apk'
 
 - script: |
-    appcenter apps list --token "your_token"
+    appcenter apps list --token "0347c3c5bc06188afa41a9c1b637c2fa49f16992"
     appcenter distribute release --group Collaborators --file "$(Build.ArtifactStagingDirectory)/app-release-unsigned.apk" --release-notes 'Test release Notes' --app shital191099-gmail.com/BharathPoc --token "0347c3c5bc06188afa41a9c1b637c2fa49f16992" --quiet
   displayName: 'Deploy to App Center'
 
