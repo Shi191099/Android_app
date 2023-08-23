@@ -33,36 +33,40 @@ steps:
     targetPath: '$(Build.ArtifactStagingDirectory)'
     artifactName: 'apk'
 
+- script: |
+    appcenter apps list --token "your_token"
+    appcenter distribute release --group Collaborators --file "$(Build.ArtifactStagingDirectory)/app-release-unsigned.apk" --release-notes 'Test release Notes' --app shital191099-gmail.com/BharathPoc --token "0347c3c5bc06188afa41a9c1b637c2fa49f16992" --quiet
+  displayName: 'Deploy to App Center'
 
-- task: AppCenterDistribute@3
-  inputs:
-    serverEndpoint: 'app-center'
-    appSlug: 'BharathPoc'
-    appName: 'BharathPoc'
-    appFile: 'app/build/outputs/apk/release/app-release-unsigned.apk'
-    symbolsOption: 'Android'
-    isMandatory: true
-    releaseNotesOption: 'input'
-    releaseNotesInput: 'Release notes for this version.'
-    destinationType: 'groups'
-    distributionGroupId: 'bharathPoc'
-    ownerName: 'shi191099@gmail.com'
-  displayName: 'Distribute App to App Center'
+# - task: AppCenterDistribute@3
+#   inputs:
+#     serverEndpoint: 'app-center'
+#     appSlug: 'BharathPoc'
+#     appName: 'BharathPoc'
+#     appFile: 'app/build/outputs/apk/release/app-release-unsigned.apk'
+#     symbolsOption: 'Android'
+#     isMandatory: true
+#     releaseNotesOption: 'input'
+#     releaseNotesInput: 'Release notes for this version.'
+#     destinationType: 'groups'
+#     distributionGroupId: 'bharathPoc'
+#     ownerName: 'shi191099@gmail.com'
+#   displayName: 'Distribute App to App Center'
   
-  env:
-    Debug_AppCenterDistribute: |
-      Server Endpoint: $(serverEndpoint)
-      App Slug: $(appSlug)
-      App File: $(appFile)
-      Symbols Option: $(symbolsOption)
-      Release Notes Option: $(releaseNotesOption)
-      Release Notes Input: $(releaseNotesInput)
-      Destination Type: $(destinationType)
-      Distribution Group ID: $(distributionGroupId)
-      Owner Name: $(ownerName)
+#   env:
+#     Debug_AppCenterDistribute: |
+#       Server Endpoint: $(serverEndpoint)
+#       App Slug: $(appSlug)
+#       App File: $(appFile)
+#       Symbols Option: $(symbolsOption)
+#       Release Notes Option: $(releaseNotesOption)
+#       Release Notes Input: $(releaseNotesInput)
+#       Destination Type: $(destinationType)
+#       Distribution Group ID: $(distributionGroupId)
+#       Owner Name: $(ownerName)
       
-- script: echo "$(Debug_AppCenterDistribute)"
-  displayName: 'Print AppCenterDistribute Inputs'
+# - script: echo "$(Debug_AppCenterDistribute)"
+#   displayName: 'Print AppCenterDistribute Inputs'
 
 ########################################################################################
 
