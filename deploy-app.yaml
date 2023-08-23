@@ -1,113 +1,24 @@
-# trigger:
-# - master
-
-# pool:
-#   name: Bharath-Finance-Pool
-#   vmImage: 'macOS-latest' # Use macOS or another suitable image for Android development
-
-# variables:
-#   JAVA_HOME: $(JAVA_HOME_8_X64)
-#   JAVA_HOME_8_X64: /usr/lib/jvm/java-8-openjdk-amd64
-#   ANDROID_SDK_ROOT: /opt/android-sdk 
-
-# steps:
-
-
-
-# - script: |
-#     chmod +x ./gradlew
-#     ./gradlew assembleRelease
-#   displayName: 'Build Android App'
-
-
-# - task: CopyFiles@2
-#   inputs:
-#     SourceFolder: '$(Build.SourcesDirectory)/app/build/outputs/apk/release/'
-#     Contents: '**/*.apk'
-#     TargetFolder: '$(build.artifactstagingdirectory)'
-#     OverWrite: true
-
-
-# - task: PublishPipelineArtifact@1
-#   inputs:
-#     targetPath: '$(Build.ArtifactStagingDirectory)'
-#     artifactName: 'apk'
-
-
-# - task: AppCenterDistribute@3
-#   inputs:
-#     serverEndpoint: 'app-center'
-#     appSlug: 'BharathPoc'
-#     appName: 'BharathPoc'
-#     appFile: 'app/build/outputs/apk/release/app-release-unsigned.apk'
-#     symbolsOption: 'Android'
-#     isMandatory: true
-#     releaseNotesOption: 'input'
-#     releaseNotesInput: 'Release notes for this version.'
-#     destinationType: 'groups'
-#     distributionGroupId: 'bharathPoc'
-#     ownerName: 'shi191099@gmail.com'
-#   displayName: 'Distribute App to App Center'
-  
-#   env:
-#     Debug_AppCenterDistribute: |
-#       Server Endpoint: $(serverEndpoint)
-#       App Slug: $(appSlug)
-#       App File: $(appFile)
-#       Symbols Option: $(symbolsOption)
-#       Release Notes Option: $(releaseNotesOption)
-#       Release Notes Input: $(releaseNotesInput)
-#       Destination Type: $(destinationType)
-#       Distribution Group ID: $(distributionGroupId)
-#       Owner Name: $(ownerName)
-      
-# - script: echo "$(Debug_AppCenterDistribute)"
-#   displayName: 'Print AppCenterDistribute Inputs'
-
-########################################################################################
-
 trigger:
 - master
 
 pool:
   name: Bharath-Finance-Pool
-  vmImage: 'macOS-latest'
+  vmImage: 'macOS-latest' # Use macOS or another suitable image for Android development
 
 variables:
   JAVA_HOME: $(JAVA_HOME_8_X64)
   JAVA_HOME_8_X64: /usr/lib/jvm/java-8-openjdk-amd64
   ANDROID_SDK_ROOT: /opt/android-sdk 
 
-parameters:
-- name: appCenterServiceConnection
-  displayName: 'Name of the service connection with App Center'
-  type: string
-  default: 'app-center'  # Change to the correct name of your service connection
-
-- name: appSlug
-  displayName: 'Path to application in AppCenter'
-  type: string
-  default: 'BharathPoc'
-
-- name: appFile
-  displayName: 'Path of the apk to deploy'
-  type: string
-  default: '**/*.apk'
-
-- name: releaseNotes
-  displayName: 'Release notes'
-  type: string
-  default: 'Release notes for this version.'
-
-# - name: deployMobileAssets
-#   displayName: "Deploy Mobile Assets"
-
-
 steps:
+
+
+
 - script: |
     chmod +x ./gradlew
     ./gradlew assembleRelease
   displayName: 'Build Android App'
+
 
 - task: CopyFiles@2
   inputs:
@@ -115,6 +26,7 @@ steps:
     Contents: '**/*.apk'
     TargetFolder: '$(build.artifactstagingdirectory)'
     OverWrite: true
+
 
 - task: PublishPipelineArtifact@1
   inputs:
@@ -124,12 +36,33 @@ steps:
 
 - task: AppCenterDistribute@3
   inputs:
-    serverEndpoint: ${{ parameters.appCenterServiceConnection }}
-    appSlug: ${{ parameters.appSlug }}
-    appFile: ${{ parameters.appFile }}
+    serverEndpoint: 'app-center'
+    appSlug: 'BharathPoc'
+    appName: 'BharathPoc'
+    appFile: 'app/build/outputs/apk/release/app-release-unsigned.apk'
     symbolsOption: 'Android'
-    destinationType: 'groups'
+    isMandatory: true
     releaseNotesOption: 'input'
-    releaseNotesInput: ${{ parameters.releaseNotes }}
-  displayName: 'Distribute to App Center'
- 
+    releaseNotesInput: 'Release notes for this version.'
+    destinationType: 'groups'
+    distributionGroupId: 'bharathPoc'
+    ownerName: 'shi191099@gmail.com'
+  displayName: 'Distribute App to App Center'
+  
+  env:
+    Debug_AppCenterDistribute: |
+      Server Endpoint: $(serverEndpoint)
+      App Slug: $(appSlug)
+      App File: $(appFile)
+      Symbols Option: $(symbolsOption)
+      Release Notes Option: $(releaseNotesOption)
+      Release Notes Input: $(releaseNotesInput)
+      Destination Type: $(destinationType)
+      Distribution Group ID: $(distributionGroupId)
+      Owner Name: $(ownerName)
+      
+- script: echo "$(Debug_AppCenterDistribute)"
+  displayName: 'Print AppCenterDistribute Inputs'
+
+########################################################################################
+
