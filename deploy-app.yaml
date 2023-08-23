@@ -39,7 +39,7 @@ steps:
     serverEndpoint: 'app-center'
     appSlug: 'BharathPoc'
     appName: 'BharathPoc'
-    appFile: '$(Build.ArtifactStagingDirectory)/apk'
+    appFile: '$(Build.ArtifactStagingDirectory)/app-release-unsigned.apk'
     symbolsOption: 'Android'
     isMandatory: true
     releaseNotesOption: 'input'
