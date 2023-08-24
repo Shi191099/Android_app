@@ -2,7 +2,8 @@ trigger:
 - master
 
 pool:
-  name: Bharath-Finance-Pool
+  #name: Bharath-Finance-Pool
+  name: Azure Pipelines
   vmImage: 'macOS-latest' # Use macOS or another suitable image for Android development
 
 variables:
