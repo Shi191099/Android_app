@@ -2,8 +2,7 @@ trigger:
 - master
 
 pool:
-  #name: Bharath-Finance-Pool
-  name: Azure Pipelines
+  name: Bharath-Finance-Pool
   vmImage: 'macOS-latest' # Use macOS or another suitable image for Android development
 
 variables:
@@ -38,8 +37,7 @@ steps:
 - task: AppCenterDistribute@3
   inputs:
     serverEndpoint: 'app-center'
-    appSlug: 'BharathPoc'
-    appName: 'BharathPoc'
+    appSlug: 'Shi/BharathPoc'
     appFile: '$(Build.ArtifactStagingDirectory)/app-release-unsigned.apk'
     symbolsOption: 'Android'
     isMandatory: true
